@@ -1,0 +1,12 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Imported assets (keep .import files, but not binary data in some cases)
+*.import
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# The initial scaffold subfolder (not the real project)
+senta-a-pua/
