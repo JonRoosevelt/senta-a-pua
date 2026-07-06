@@ -3,17 +3,17 @@
 [ext_resource type="Script" path="res://scripts/explosion.gd" id="1_explosion"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fire"]
-albedo_color = Color(1, 0.45, 0.1, 1)
+albedo_color = Color(1, 0.45, 0.08, 1)
 emission_enabled = true
-emission = Color(1, 0.35, 0.1, 1)
-emission_energy_multiplier = 5.0
+emission = Color(1, 0.35, 0.08, 1)
+emission_energy_multiplier = 4.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_fire"]
 material = SubResource("StandardMaterial3D_fire")
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smoke"]
-albedo_color = Color(0.15, 0.12, 0.1, 0.8)
+albedo_color = Color(0.15, 0.13, 0.10, 0.8)
 roughness = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_smoke"]
@@ -25,30 +25,30 @@ script = ExtResource("1_explosion")
 
 [node name="FireParticles" type="CPUParticles3D" parent="."]
 emitting = false
-amount = 22
-lifetime = 0.8
+amount = 28
+lifetime = 0.75
 one_shot = true
 explosiveness = 0.92
 mesh = SubResource("BoxMesh_fire")
 direction = Vector3(0, 1, 0)
 spread = 180.0
-gravity = Vector3(0, -7, 0)
-initial_velocity_min = 7.0
-initial_velocity_max = 14.0
-scale_amount_min = 0.4
+gravity = Vector3(0, -6, 0)
+initial_velocity_min = 6.0
+initial_velocity_max = 15.0
+scale_amount_min = 0.3
 scale_amount_max = 1.2
 
 [node name="SmokeParticles" type="CPUParticles3D" parent="."]
 emitting = false
-amount = 12
-lifetime = 1.5
+amount = 15
+lifetime = 1.8
 one_shot = true
 explosiveness = 0.85
 mesh = SubResource("BoxMesh_smoke")
 direction = Vector3(0, 1, 0)
 spread = 160.0
-gravity = Vector3(0, -2, 0)
-initial_velocity_min = 3.0
-initial_velocity_max = 8.0
-scale_amount_min = 0.6
-scale_amount_max = 2.0
+gravity = Vector3(0, -1.5, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 7.0
+scale_amount_min = 0.5
+scale_amount_max = 2.5
