@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemy_fighter.gd" id="1_enemy_fighter"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fighter"]
+albedo_color = Color(0.55, 0.15, 0.15, 1)
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_fuselage"]
+material = SubResource("StandardMaterial3D_fighter")
+size = Vector3(1.1, 1.1, 4.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_metal_dark"]
+albedo_color = Color(0.1, 0.1, 0.12, 1)
+roughness = 0.5
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_propeller"]
+material = SubResource("StandardMaterial3D_metal_dark")
+size = Vector3(3.0, 0.12, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_canopy_dark"]
+transparency = 1
+albedo_color = Color(0.8, 0.2, 0.2, 0.4)
+roughness = 0.1
+metallic = 0.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_canopy"]
+material = SubResource("StandardMaterial3D_canopy_dark")
+size = Vector3(0.65, 0.55, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wings"]
+material = SubResource("StandardMaterial3D_fighter")
+size = Vector3(7.6, 0.18, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rudder"]
+material = SubResource("StandardMaterial3D_fighter")
+size = Vector3(0.18, 1.6, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tail"]
+material = SubResource("StandardMaterial3D_fighter")
+size = Vector3(2.8, 0.12, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fighter"]
+size = Vector3(7.6, 1.8, 5.0)
+
+[node name="EnemyFighter" type="CharacterBody3D"]
+script = ExtResource("1_enemy_fighter")
+
+[node name="Fuselagem" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+mesh = SubResource("BoxMesh_fuselage")
+
+[node name="Canopy" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.2)
+mesh = SubResource("BoxMesh_canopy")
+
+[node name="Helice" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.4)
+mesh = SubResource("BoxMesh_propeller")
+
+[node name="Asas" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.5)
+mesh = SubResource("BoxMesh_wings")
+
+[node name="Leme" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 2.1)
+mesh = SubResource("BoxMesh_rudder")
+
+[node name="Profundor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1)
+mesh = SubResource("BoxMesh_tail")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fighter")
