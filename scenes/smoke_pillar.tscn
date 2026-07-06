@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/smoke_pillar.gd" id="1_smoke_pillar"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smoke"]
+albedo_color = Color(0.12, 0.1, 0.08, 0.7)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_smoke"]
+material = SubResource("StandardMaterial3D_smoke")
+size = Vector3(1.0, 1.0, 1.0)
+
+[node name="SmokePillar" type="CPUParticles3D"]
+emitting = false
+amount = 18
+lifetime = 2.5
+mesh = SubResource("BoxMesh_smoke")
+direction = Vector3(0, 1, 0)
+spread = 35.0
+gravity = Vector3(0, 1.5, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 6.0
+scale_amount_min = 0.8
+scale_amount_max = 3.5
+color_ramp = GradientTexture1D.new()
+script = ExtResource("1_smoke_pillar")

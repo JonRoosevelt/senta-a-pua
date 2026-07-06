@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 @onready var enemy_bullet_scene = preload("res://scenes/enemy_bullet.tscn")
 @onready var explosion_scene = preload("res://scenes/explosion.tscn")
+@onready var smoke_scene = preload("res://scenes/smoke_pillar.tscn")
 @onready var helice: MeshInstance3D = $Helice
 
 var player: Node3D = null
@@ -86,6 +87,11 @@ func explode() -> void:
 	var expl = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(expl)
 	expl.global_position = global_position
+	
+	# Fumaça persistente caindo
+	var smoke = smoke_scene.instantiate()
+	get_tree().current_scene.add_child(smoke)
+	smoke.global_position = global_position + Vector3(0, -2, 0)
 	
 	# Notifica o GameManager
 	if GameManager:
