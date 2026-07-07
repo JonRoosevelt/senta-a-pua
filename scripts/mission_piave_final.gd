@@ -172,26 +172,52 @@ func _spawn_bridge_and_train() -> void:
 # ITALIAN VILLAGE
 # =============================================
 func _spawn_village() -> void:
-	# Village south of river (farmhouses + church) - BIG scale to be visible
-	var positions = [
-		Vector3(-80, 0, -100), Vector3(-40, 0, -90), Vector3(0, 0, -105),
-		Vector3(-60, 0, -130), Vector3(-100, 0, -120), Vector3(-20, 0, -135),
+	# Organic village layout - houses clustered around the church
+	# Church is the anchor at center
+	var church = _spawn_glb("res://assets/meshy/church.glb",
+		Vector3(-60, 0, -100), Vector3(18, 18, 18), Vector3(0, 15, 0))
+	church.name = "Church"
+	
+	# Houses in a loose cluster around the church, with organic offsets
+	var house_data = [
+		# (x_offset, z_offset, rotation)
+		Vector3(-90, 0, -85),   # NW of church
+		Vector3(-85, 0, -115),  # SW
+		Vector3(-40, 0, -80),   # NE
+		Vector3(-35, 0, -120),  # SE
+		Vector3(-65, 0, -65),   # North
+		Vector3(-70, 0, -135),  # South
+		Vector3(-110, 0, -100), # West
+		Vector3(-20, 0, -100),  # East
 	]
-	for pos in positions:
+	
+	for pos in house_data:
 		var house = _spawn_glb("res://assets/meshy/farmhouse.glb", pos,
 			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		house.name = "Farmhouse"
 	
-	# Church as centerpiece
-	var church = _spawn_glb("res://assets/meshy/church.glb",
-		Vector3(-55, 0, -110), Vector3(18, 18, 18), Vector3(0, 0, 0))
-	church.name = "Church"
-	
-	# Extra village buildings on east side
-	for pos in [Vector3(100, 0, -90), Vector3(140, 0, -85), Vector3(120, 0, -115), Vector3(160, 0, -100)]:
+	# Second cluster - smaller, east side
+	var east_buildings = [
+		Vector3(140, 0, -80),
+		Vector3(160, 0, -95),
+		Vector3(150, 0, -120),
+		Vector3(180, 0, -85),
+	]
+	for pos in east_buildings:
 		var b = _spawn_glb("res://assets/meshy/village_building.glb", pos,
 			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		b.name = "VillageBuilding"
+	
+	# A couple more farmhouses scattered
+	var extra_houses = [
+		Vector3(-180, 0, -70),
+		Vector3(200, 0, -130),
+		Vector3(-140, 0, -140),
+	]
+	for pos in extra_houses:
+		var house = _spawn_glb("res://assets/meshy/farmhouse.glb", pos,
+			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
+		house.name = "Farmhouse"
 
 # =============================================
 # MILITARY TARGETS
@@ -211,20 +237,38 @@ func _spawn_military_targets() -> void:
 # VEGETATION
 # =============================================
 func _spawn_vegetation() -> void:
-	# Cypress trees along river and village
-	var tree_positions = []
-	# South bank
-	for x in range(-200, 200, 20):
-		tree_positions.append(Vector3(x + randf_range(-5, 5), 0, -155))
-	# North bank
-	for x in range(-200, 200, 25):
-		tree_positions.append(Vector3(x + randf_range(-5, 5), 0, -205))
-	# Around village
-	for _i in range(10):
-		tree_positions.append(Vector3(-80 + randf_range(-30, 30), 0, -100 + randf_range(-30, 30)))
+	# DENSE forest clusters (not scattered individuals)
+	# North bank forest (between river and mountains)
+	_spawn_tree_cluster(Vector3(-150, 0, -230), 20, 40)
+	_spawn_tree_cluster(Vector3(50, 0, -240), 15, 35)
+	_spawn_tree_cluster(Vector3(200, 0, -225), 18, 30)
 	
-	for pos in tree_positions:
-		var tree = _spawn_glb("res://assets/meshy/cypress.glb", pos,
+	# South bank trees (near player start)
+	_spawn_tree_cluster(Vector3(-100, 0, -130), 12, 25)
+	_spawn_tree_cluster(Vector3(80, 0, -120), 12, 25)
+	
+	# Village trees (around houses)
+	_spawn_tree_cluster(Vector3(-60, 0, -100), 8, 15)
+	_spawn_tree_cluster(Vector3(150, 0, -100), 6, 12)
+	
+	# Eastern forest
+	_spawn_tree_cluster(Vector3(-250, 0, -180), 10, 20)
+	
+	# Scattered individual trees between clusters
+	for _i in range(30):
+		var x = randf_range(-300, 300)
+		var z = randf_range(-140, -260)
+		var tree = _spawn_glb("res://assets/meshy/cypress.glb", Vector3(x, 0, z),
+			Vector3(10, 10, 10), Vector3(0, randf_range(0, 360), 0))
+		tree.name = "Cypress"
+
+func _spawn_tree_cluster(center: Vector3, count: int, radius: float) -> void:
+	for _i in range(count):
+		var angle = randf_range(0, TAU)
+		var dist = randf_range(0, radius)
+		var x = center.x + cos(angle) * dist
+		var z = center.z + sin(angle) * dist
+		var tree = _spawn_glb("res://assets/meshy/cypress.glb", Vector3(x, 0, z),
 			Vector3(10, 10, 10), Vector3(0, randf_range(0, 360), 0))
 		tree.name = "Cypress"
 
