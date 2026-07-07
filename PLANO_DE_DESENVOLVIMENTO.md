@@ -149,35 +149,44 @@ graph TD
 
 ---
 
-## 🔄 Fase 8: Estrutura de Missões (Próxima)
+## ✅ Fase 8: Estrutura de Missões (Concluída)
 *Transformar o mapa único em uma campanha com missões baseadas em eventos históricos reais.*
 
-- [ ] **Sistema de fases/missões:** carregar mapas diferentes por missão
-- [ ] **Missão 1 - Patrulha:** voar por waypoints, eliminar caças inimigos no ar
-- [ ] **Missão 2 - Interdição:** destruir pontes e comboios de suprimentos no Vale do Pó
-- [ ] **Missão 3 - Caça-bombardeio:** atacar ninhos de artilharia e trens blindados
-- [ ] **Missão 4 - Escolta:** proteger bombardeiros aliados de caças inimigos
-- [ ] **Missão 5 - 22 de Abril de 1945:** missão final épica — 44 surtidas, gerenciamento de recursos, clímax
-- [ ] **Briefing pré-missão:** tela com contexto histórico e objetivos
-- [ ] **Debriefing pós-missão:** estatísticas (alvos destruídos, dano sofrido, pilotos perdidos)
-- [ ] **Sistema de progressão:** desbloquear missões seguintes ao completar anteriores
+- [x] **Sistema de fases/missões:** 5 cenas independentes com progressão sequencial
+- [x] **Missão 1 - Patrulha:** voar sobre o Vale do Pó, eliminar 2 caças + 2 torres Flak
+- [x] **Missão 2 - Interdição:** destruir ponte ferroviária + trem de suprimentos + 3 torres + 2 caças
+- [x] **Missão 3 - Caça-bombardeio:** atacar depósito de munição + ninho de artilharia + 4 torres + 3 caças
+- [x] **Missão 4 - Escolta:** proteger 3 bombardeiros B-25 de 4 caças inimigos
+- [x] **Missão 5 - 22 de Abril de 1945:** ofensiva final — 5 torres + 4 caças + ponte + depósito
+- [x] **Briefing pré-missão:** tela com título, subtítulo histórico, briefing narrativo e lista de objetivos
+- [x] **Debriefing pós-missão:** tela de missão cumprida com pilotos perdidos e próximo destino
+- [x] **Sistema de progressão:** Menu → Briefing → Missão → Missão Cumprida → Briefing (próx.) → ... → Vitória Final
+- [x] **Assets específicos:** ninho de artilharia com sandbags, bombardeiro B-25 low-poly
+- [x] **HUD expandido:** mostra nome da missão atual
+
+**Commit:** `537db1a`
 
 ---
 
-## 🔄 Fase 9: Arte Low-Poly Avançada (Futura)
+## 🔄 Fase 9: Refinamento de Assets (Próxima)
+*Corrigir geometria estranha e melhorar modelos que parecem muito Minecraft.*
+
+---
+
+## 🔄 Fase 10: Arte Low-Poly Avançada (Futura)
 *Refinar o visual — transição de BoxMesh para malhas .glb mais detalhadas.*
 
+- [ ] **🐛 Montanhas estranhas:** camadas de caixas empilhadas parecem Minecraft. Refazer com formato piramidal ou mesh única facetada
 - [ ] **Modelo P-47 refinado:** geometria mais detalhada (cilindros facetados, formas de asa curvas)
 - [ ] **Texturas e materiais:** paleta de cores cuidada, flat shading, sem texturas fotorealistas
-- [ ] **Cenário do Vale do Pó:** montanhas geométricas, vilarejos italianos estilizados, rios
+- [ ] **Cenário do Vale do Pó:** vilarejos italianos mais detalhados
 - [ ] **Iluminação dramática:** pôr do sol alaranjado/roxo, sombras duras (alto contraste)
 - [ ] **Efeitos atmosféricos:** névoa, nuvens geométricas, glow em traçantes e explosões
-- [ ] **Substituir blocos placeholder** por modelos low-poly temáticos
 - [ ] **UI estilizada:** fontes e painéis com identidade visual da época (1940s militar)
 
 ---
 
-## ⏳ Fase 10: Áudio & Polimento (Futura)
+## ⏳ Fase 11: Áudio & Polimento (Futura)
 *Adicionar camada sonora e refinar a experiência.*
 
 - [ ] **Motor do P-47:** som radial do Pratt & Whitney R-2800 Double Wasp
@@ -191,7 +200,7 @@ graph TD
 
 ---
 
-## ⏳ Fase 11: Build & Distribuição (Futura)
+## ⏳ Fase 12: Build & Distribuição (Futura)
 *Preparar o jogo para ser jogado por outras pessoas.*
 
 - [ ] **Exportar para desktop:** Windows, macOS, Linux via Godot export templates
@@ -229,8 +238,10 @@ A direção de arte do projeto segue o estilo **low-poly de alto contraste**:
 ---
 
 > [!NOTE]
-> **Progresso atual:** 7 de 11 fases concluídas. O protótipo possui combate aéreo completo, HUD, física de voo, campanha com permadeath, dogfights contra IA, e cenário low-poly do Vale do Pó com iluminação adequada.
+> **Progresso atual:** 8 de 12 fases concluídas. Jogo possui: combate aéreo completo, HUD, física de voo, campanha com permadeath (6 pilotos históricos), dogfights contra IA, cenário low-poly do Vale do Pó, e 5 missões históricas com briefing e progressão.
 >
-> **Próximo passo recomendado:** Fase 8 — Estrutura de Missões históricas para transformar o sandbox em uma campanha narrativa.
+> **Próximo passo recomendado:** Fase 9 — Refinamento de Assets (montanhas, modelos de aviões, UI).
 >
-> **Commits mais recentes:** `ba1f215` (assets low-poly), `af34b33` (correção shading per-pixel).
+> **🐛 Bug reportado:** Montanhas estão estranhas (caixas empilhadas estilo Minecraft). Refazer com geometria piramidal facetada.
+>
+> **Commits mais recentes:** `537db1a` (missões), `af34b33` (shading).
