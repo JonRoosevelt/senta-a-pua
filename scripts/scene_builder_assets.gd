@@ -54,16 +54,11 @@ func create_ground() -> StaticBody3D:
 	var root = StaticBody3D.new()
 	root.name = "Ground"
 	
-	# Ground with a simple gradient material (not just flat brown)
+	# Ground with a simple warm earth material
 	var mat = StandardMaterial3D.new()
 	mat.albedo_color = Color(0.48, 0.38, 0.2)  # warm earth
 	mat.roughness = 0.95
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
-	# Use UV1 for a subtle detail
-	mat.uv1_scale = Vector3(20, 20, 20)
-	mat.detail_enabled = true
-	mat.detail_albedo = Color(0.55, 0.45, 0.25)
-	mat.detail_uv_layer = 1
 	
 	var mi = MeshInstance3D.new()
 	var mesh = PlaneMesh.new()
