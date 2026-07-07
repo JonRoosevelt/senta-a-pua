@@ -1,0 +1,9 @@
+# p47_meshy.tscn - P-47 Thunderbolt from Meshy.ai
+# Replaces the box-based player model
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/meshy/p47_thunderbolt.glb" id="1_p47_mesh"]
+
+[node name="P47" type="Node3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_p47_mesh")]
