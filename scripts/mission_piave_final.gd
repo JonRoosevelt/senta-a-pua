@@ -155,7 +155,6 @@ func _spawn_bridge_and_train() -> void:
 	var bridge = _spawn_glb("res://assets/meshy/railway_bridge.glb",
 		Vector3(0, 0, -180), Vector3(25, 12, 12), Vector3(0, 0, 0))
 	bridge.name = "Bridge"
-	_add_collision(bridge, Vector3(50, 15, 15))
 	_add_bridge_script(bridge)
 	
 	# Steam locomotive on bridge
@@ -255,6 +254,14 @@ func _add_collision(node: Node3D, size: Vector3) -> void:
 	node.add_child(body)
 
 func _add_bridge_script(node: Node3D) -> void:
-	node.set_script(load("res://scripts/bridge_segment.gd"))
-	node.objective_type = "bridge_pillar"
-	node.max_health = 80.0
+	# Bridge script requires StaticBody3D, create it as child
+	var body = StaticBody3D.new()
+	body.name = "BridgeBody"
+	body.set_script(load("res://scripts/bridge_segment.gd"))
+	body.objective_type = "bridge_pillar"
+	body.max_health = 80.0
+	var col = CollisionShape3D.new()
+	col.shape = BoxShape3D.new()
+	col.shape.size = Vector3(50, 15, 15)
+	body.add_child(col)
+	node.add_child(body)
