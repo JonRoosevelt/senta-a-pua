@@ -188,8 +188,8 @@ func _populate_assets() -> void:
 	bridge.objective_type = "bridge_pillar"
 	var model = bridge.get_node("BridgeModel")
 	if model:
-		model.scale = Vector3(25, 15, 15)  # Wide enough to span 40m river
-		model.rotation_degrees = Vector3(0, -90, 0)  # Span X axis across river
+		model.scale = Vector3(25, 15, 15)
+		model.rotation_degrees = Vector3(0, 90, 0)  # rotate on Y to span X axis
 	add_child(bridge)
 	
 	b.queue_free()
