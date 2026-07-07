@@ -153,52 +153,52 @@ func _spawn_bridge_and_train() -> void:
 	
 	# Steam locomotive on bridge
 	var train = _spawn_glb("res://assets/meshy/steam_train.glb",
-		Vector3(0, 2, -220), Vector3(4, 4, 4), Vector3(0, 0, 0))
+		Vector3(0, 5, -220), Vector3(15, 15, 15), Vector3(0, 0, 0))
 	train.name = "SteamTrain"
 	
 	# Boxcars behind locomotive
 	for i in range(3):
 		var boxcar = _spawn_glb("res://assets/meshy/boxcar.glb",
-			Vector3(0, 2, -240 - i * 15), Vector3(3, 3, 3), Vector3(0, 0, 0))
+			Vector3(0, 5, -245 - i * 18), Vector3(15, 15, 15), Vector3(0, 0, 0))
 		boxcar.name = "Boxcar" + str(i)
 
 # =============================================
 # ITALIAN VILLAGE
 # =============================================
 func _spawn_village() -> void:
-	# Village south of river (farmhouses + church)
+	# Village south of river (farmhouses + church) - BIG scale to be visible
 	var positions = [
-		Vector3(-80, 0, -100), Vector3(-50, 0, -90), Vector3(-20, 0, -105),
-		Vector3(-60, 0, -130), Vector3(-90, 0, -125), Vector3(-30, 0, -135),
+		Vector3(-80, 0, -100), Vector3(-40, 0, -90), Vector3(0, 0, -105),
+		Vector3(-60, 0, -130), Vector3(-100, 0, -120), Vector3(-20, 0, -135),
 	]
 	for pos in positions:
 		var house = _spawn_glb("res://assets/meshy/farmhouse.glb", pos,
-			Vector3(2, 2, 2), Vector3(0, randf_range(0, 360), 0))
+			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		house.name = "Farmhouse"
 	
 	# Church as centerpiece
 	var church = _spawn_glb("res://assets/meshy/church.glb",
-		Vector3(-55, 0, -110), Vector3(2.5, 2.5, 2.5), Vector3(0, 0, 0))
+		Vector3(-55, 0, -110), Vector3(18, 18, 18), Vector3(0, 0, 0))
 	church.name = "Church"
 	
 	# Extra village buildings on east side
-	for pos in [Vector3(100, 0, -90), Vector3(130, 0, -85), Vector3(110, 0, -115), Vector3(140, 0, -100)]:
+	for pos in [Vector3(100, 0, -90), Vector3(140, 0, -85), Vector3(120, 0, -115), Vector3(160, 0, -100)]:
 		var b = _spawn_glb("res://assets/meshy/village_building.glb", pos,
-			Vector3(2, 2, 2), Vector3(0, randf_range(0, 360), 0))
+			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		b.name = "VillageBuilding"
 
 # =============================================
 # MILITARY TARGETS
 # =============================================
 func _spawn_military_targets() -> void:
-	# Bunker near bridge (north side)
+	# Bunker near bridge
 	var bunker = _spawn_glb("res://assets/meshy/bunker.glb",
-		Vector3(30, 0, -210), Vector3(3, 3, 3), Vector3(0, 0, 0))
+		Vector3(60, 0, -210), Vector3(15, 15, 15), Vector3(0, 0, 0))
 	bunker.name = "Bunker"
 	
 	# Ammo depot west
 	var ammo = _spawn_glb("res://assets/meshy/ammo_depot.glb",
-		Vector3(-200, 0, -250), Vector3(3, 3, 3), Vector3(0, 45, 0))
+		Vector3(-200, 0, -280), Vector3(15, 15, 15), Vector3(0, 45, 0))
 	ammo.name = "AmmoDepot"
 
 # =============================================
@@ -219,7 +219,7 @@ func _spawn_vegetation() -> void:
 	
 	for pos in tree_positions:
 		var tree = _spawn_glb("res://assets/meshy/cypress.glb", pos,
-			Vector3(1.5, 1.5, 1.5), Vector3(0, randf_range(0, 360), 0))
+			Vector3(10, 10, 10), Vector3(0, randf_range(0, 360), 0))
 		tree.name = "Cypress"
 
 # =============================================
