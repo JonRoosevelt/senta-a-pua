@@ -24,7 +24,7 @@ func _setup_world() -> void:
 	env.glow_intensity = 0.6
 	env.glow_strength = 0.8
 	env.fog_enabled = true
-	env.fog_mode = Environment.FOG_DEPTH_ENABLED
+	env.fog_mode = 1  # Depth fog
 	env.fog_density = 0.004
 	env.fog_light_color = Color(0.85, 0.72, 0.52)
 	env.fog_aerial_perspective = 0.5
