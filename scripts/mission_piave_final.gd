@@ -295,7 +295,10 @@ func _spawn_glb(path: String, pos: Vector3, scl: Vector3, rot: Vector3) -> Node3
 
 func _remove_collisions(node: Node) -> void:
 	for child in node.get_children():
-		if child is CollisionShape3D or child is StaticBody3D or child is CharacterBody3D:
+		# Remove ANY physics body or collision shape
+		if child is CollisionShape3D or child is CollisionPolygon3D:
+			child.queue_free()
+		elif child is StaticBody3D or child is CharacterBody3D or child is RigidBody3D or child is Area3D:
 			child.queue_free()
 		else:
 			_remove_collisions(child)
