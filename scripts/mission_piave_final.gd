@@ -9,15 +9,22 @@ var river_angle: float = 0.0
 var segment_length: float = 40.0
 
 func _ready() -> void:
+	print("[Piave Final] Starting...")
 	GameManager.start_mission()
 	_setup_world()
+	print("[Piave Final] World setup done")
 	_build_terrain()
+	print("[Piave Final] Terrain done")
 	_prefill_river()
+	print("[Piave Final] River done")
 	_spawn_bridge_and_train()
+	print("[Piave Final] Bridge+train spawned")
 	_spawn_village()
+	print("[Piave Final] Village spawned")
 	_spawn_military_targets()
+	print("[Piave Final] Military targets spawned")
 	_spawn_vegetation()
-	print("[Piave Final] All 13 assets deployed.")
+	print("[Piave Final] Vegetation spawned. DONE.")
 
 func _setup_world() -> void:
 	var env = Environment.new()
@@ -226,12 +233,17 @@ func _spawn_vegetation() -> void:
 # HELPERS
 # =============================================
 func _spawn_glb(path: String, pos: Vector3, scl: Vector3, rot: Vector3) -> Node3D:
+	print("  Spawning: ", path, " at ", pos)
 	var scene = load(path)
+	if not scene:
+		print("  ERROR: Failed to load ", path)
+		return Node3D.new()
 	var instance = scene.instantiate()
 	instance.position = pos
 	instance.scale = scl
 	instance.rotation_degrees = rot
 	add_child(instance)
+	print("  -> Spawned OK, child count now: ", get_child_count())
 	return instance
 
 func _add_collision(node: Node3D, size: Vector3) -> void:
