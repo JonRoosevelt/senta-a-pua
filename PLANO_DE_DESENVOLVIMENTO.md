@@ -128,7 +128,28 @@ graph TD
 
 ---
 
-## 🔄 Fase 7: Estrutura de Missões (Próxima)
+## ✅ Fase 7: Arte Low-Poly - Vale do Pó (Concluída)
+*Substituir os blocos genéricos do cenário por assets low-poly estilizados com iluminação adequada.*
+
+- [x] **Scene Builder:** gerador procedural de geometria low-poly (`scene_builder.gd`)
+- [x] **Terreno:** grid de placas facetadas simulando colinas do Vale do Pó
+- [x] **Montanhas:** Alpes italianos em camadas geométricas com topo nevado
+- [x] **Ciprestes:** árvores cônicas italianas (tronco + folhagem em camadas)
+- [x] **Vilarejo italiano:** prédios com telhados terracota, igreja com torre sineira e cruz
+- [x] **Ponte ferroviária + trem:** locomotiva a vapor alemã com 3 vagões de suprimentos
+- [x] **Depósito de munição:** caixas empilhadas
+- [x] **Torre Flak refinada:** base de concreto, cano angulado, escudo blindado
+- [x] **Materiais corrigidos:** `SHADING_MODE_PER_PIXEL` substituiu `UNSHADED` (fim do visual Minecraft)
+- [x] **Paleta de cores:** verde-oliva, terracota, concreto, tons de montanha com neve
+- [x] **Explosões melhoradas:** sistema dual fogo + fumaça escura
+- [x] **Fumaça persistente:** coluna de fumaça que permanece após destruição (`smoke_pillar.tscn`)
+- [x] **Iluminação:** fog atmosférico, névoa aérea, sol alaranjado de pôr do sol
+
+**Commit:** `ba1f215`, `af34b33`
+
+---
+
+## 🔄 Fase 8: Estrutura de Missões (Próxima)
 *Transformar o mapa único em uma campanha com missões baseadas em eventos históricos reais.*
 
 - [ ] **Sistema de fases/missões:** carregar mapas diferentes por missão
@@ -143,8 +164,8 @@ graph TD
 
 ---
 
-## 🔄 Fase 8: Arte Low-Poly Avançada (Futura)
-*Elevar o visual para o nível das artes conceituais de referência.*
+## 🔄 Fase 9: Arte Low-Poly Avançada (Futura)
+*Refinar o visual — transição de BoxMesh para malhas .glb mais detalhadas.*
 
 - [ ] **Modelo P-47 refinado:** geometria mais detalhada (cilindros facetados, formas de asa curvas)
 - [ ] **Texturas e materiais:** paleta de cores cuidada, flat shading, sem texturas fotorealistas
@@ -156,7 +177,7 @@ graph TD
 
 ---
 
-## ⏳ Fase 9: Áudio & Polimento (Futura)
+## ⏳ Fase 10: Áudio & Polimento (Futura)
 *Adicionar camada sonora e refinar a experiência.*
 
 - [ ] **Motor do P-47:** som radial do Pratt & Whitney R-2800 Double Wasp
@@ -170,7 +191,7 @@ graph TD
 
 ---
 
-## ⏳ Fase 10: Build & Distribuição (Futura)
+## ⏳ Fase 11: Build & Distribuição (Futura)
 *Preparar o jogo para ser jogado por outras pessoas.*
 
 - [ ] **Exportar para desktop:** Windows, macOS, Linux via Godot export templates
@@ -208,6 +229,8 @@ A direção de arte do projeto segue o estilo **low-poly de alto contraste**:
 ---
 
 > [!NOTE]
-> **Progresso atual:** 6 de 10 fases concluídas. O protótipo já possui combate aéreo completo, HUD, física de voo, campanha com permadeath, e dogfights contra IA.
+> **Progresso atual:** 7 de 11 fases concluídas. O protótipo possui combate aéreo completo, HUD, física de voo, campanha com permadeath, dogfights contra IA, e cenário low-poly do Vale do Pó com iluminação adequada.
 >
-> **Próximo passo recomendado:** Fase 7 — Estrutura de Missões históricas para transformar o sandbox em uma campanha narrativa.
+> **Próximo passo recomendado:** Fase 8 — Estrutura de Missões históricas para transformar o sandbox em uma campanha narrativa.
+>
+> **Commits mais recentes:** `ba1f215` (assets low-poly), `af34b33` (correção shading per-pixel).
