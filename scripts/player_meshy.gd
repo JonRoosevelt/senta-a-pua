@@ -16,8 +16,8 @@ extends CharacterBody3D
 @onready var camera: Camera3D = $Camera3D
 
 # Wing tip markers for bullet spawn
-var wing_span: float = 6.0
-var wing_offset_z: float = -0.5
+var wing_span: float = 4.0   # will be ~12m after 3x scale
+var wing_offset_z: float = 0.0  # wing root position
 
 var health: float = 100.0
 var is_dead: bool = false
@@ -30,6 +30,13 @@ func _ready() -> void:
 	health = max_health
 	if camera:
 		camera_base_transform = camera.transform
+	
+	# Fix Meshy model orientation (it comes rotated 90° on Z axis, face pointing up instead of forward)
+	# And scale up (Meshy models are typically small)
+	var model = $P47Model
+	if model:
+		model.rotation_degrees = Vector3(0, 90, 0)  # Rotate to face -Z (forward)
+		model.scale = Vector3(3, 3, 3)  # Scale up 3x
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
