@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_enemy"]
+[ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_enemy_fighter"]
+[ext_resource type="Script" path="res://scripts/mission_piave_v4.gd" id="4_script"]
+
+[node name="MissionPiaveV4" type="Node3D"]
+script = ExtResource("4_script")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+
+[node name="EnemyTowers" type="Node3D" parent="."]
+
+[node name="Tower1" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 2, -130)
+
+[node name="Tower2" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 2, -130)
+
+[node name="Tower3" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -220)
+
+[node name="EnemyFighters" type="Node3D" parent="."]
+
+[node name="Fighter1" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 30, -250)
+
+[node name="Fighter2" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 28, -300)
