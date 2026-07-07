@@ -172,47 +172,33 @@ func _spawn_bridge_and_train() -> void:
 # ITALIAN VILLAGE
 # =============================================
 func _spawn_village() -> void:
-	# Organic village layout - houses clustered around the church
-	# Church is the anchor at center
+	# Church
 	var church = _spawn_glb("res://assets/meshy/church.glb",
 		Vector3(-60, 0, -100), Vector3(18, 18, 18), Vector3(0, 15, 0))
 	church.name = "Church"
 	
-	# Houses in a loose cluster around the church, with organic offsets
 	var house_data = [
-		# (x_offset, z_offset, rotation)
-		Vector3(-90, 0, -85),   # NW of church
-		Vector3(-85, 0, -115),  # SW
-		Vector3(-40, 0, -80),   # NE
-		Vector3(-35, 0, -120),  # SE
-		Vector3(-65, 0, -65),   # North
-		Vector3(-70, 0, -135),  # South
-		Vector3(-110, 0, -100), # West
-		Vector3(-20, 0, -100),  # East
+		Vector3(-90, 0, -85), Vector3(-85, 0, -115),
+		Vector3(-40, 0, -80), Vector3(-35, 0, -120),
+		Vector3(-65, 0, -65), Vector3(-70, 0, -135),
+		Vector3(-110, 0, -100), Vector3(-20, 0, -100),
 	]
-	
 	for pos in house_data:
 		var house = _spawn_glb("res://assets/meshy/farmhouse.glb", pos,
 			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		house.name = "Farmhouse"
 	
-	# Second cluster - smaller, east side
 	var east_buildings = [
-		Vector3(140, 0, -80),
-		Vector3(160, 0, -95),
-		Vector3(150, 0, -120),
-		Vector3(180, 0, -85),
+		Vector3(140, 0, -80), Vector3(160, 0, -95),
+		Vector3(150, 0, -120), Vector3(180, 0, -85),
 	]
 	for pos in east_buildings:
 		var b = _spawn_glb("res://assets/meshy/village_building.glb", pos,
 			Vector3(15, 15, 15), Vector3(0, randf_range(0, 360), 0))
 		b.name = "VillageBuilding"
 	
-	# A couple more farmhouses scattered
 	var extra_houses = [
-		Vector3(-180, 0, -70),
-		Vector3(200, 0, -130),
-		Vector3(-140, 0, -140),
+		Vector3(-180, 0, -70), Vector3(200, 0, -130), Vector3(-140, 0, -140),
 	]
 	for pos in extra_houses:
 		var house = _spawn_glb("res://assets/meshy/farmhouse.glb", pos,
@@ -223,12 +209,10 @@ func _spawn_village() -> void:
 # MILITARY TARGETS
 # =============================================
 func _spawn_military_targets() -> void:
-	# Bunker near bridge
 	var bunker = _spawn_glb("res://assets/meshy/bunker.glb",
 		Vector3(60, 0, -210), Vector3(15, 15, 15), Vector3(0, 0, 0))
 	bunker.name = "Bunker"
 	
-	# Ammo depot west
 	var ammo = _spawn_glb("res://assets/meshy/ammo_depot.glb",
 		Vector3(-200, 0, -280), Vector3(15, 15, 15), Vector3(0, 45, 0))
 	ammo.name = "AmmoDepot"
@@ -285,23 +269,11 @@ func _spawn_glb(path: String, pos: Vector3, scl: Vector3, rot: Vector3) -> Node3
 	instance.position = pos
 	instance.scale = scl
 	instance.rotation_degrees = rot
-	
-	# Disable all collision on scenery assets
-	_remove_collisions(instance)
-	
 	add_child(instance)
-	print("  -> Spawned OK, child count now: ", get_child_count())
 	return instance
 
-func _remove_collisions(node: Node) -> void:
-	for child in node.get_children():
-		# Remove ANY physics body or collision shape
-		if child is CollisionShape3D or child is CollisionPolygon3D:
-			child.queue_free()
-		elif child is StaticBody3D or child is CharacterBody3D or child is RigidBody3D or child is Area3D:
-			child.queue_free()
-		else:
-			_remove_collisions(child)
+func _remove_collisions(_node: Node) -> void:
+	pass  # No-op: we keep all collisions now
 
 func _add_collision(node: Node3D, size: Vector3) -> void:
 	var body = StaticBody3D.new()
