@@ -9,7 +9,6 @@ extends CharacterBody3D
 @onready var enemy_bullet_scene = preload("res://scenes/enemy_bullet.tscn")
 @onready var explosion_scene = preload("res://scenes/explosion.tscn")
 @onready var smoke_scene = preload("res://scenes/smoke_pillar.tscn")
-@onready var helice: MeshInstance3D = $Helice
 
 var player: Node3D = null
 var health: float = 30.0
@@ -18,23 +17,22 @@ var fire_timer: float = 0.0
 
 func _ready() -> void:
 	health = max_health
-	player = get_node_or_null("/root/Main/Player")
-	if not player:
-		player = get_tree().current_scene.get_node_or_null("Player")
+	player = get_tree().current_scene.get_node_or_null("Player")
+	
+	# Fix Meshy model orientation and scale
+	var model = $Bf109Model
+	if model:
+		model.rotation_degrees = Vector3(0, -90, 0)
+		model.scale = Vector3(5, 5, 5)
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 		
 	if not player or player.is_dead:
-		# Se o player morreu, apenas voa reto
 		velocity = -global_transform.basis.z * speed
 		move_and_slide()
 		return
-		
-	# Roda a hélice inimiga
-	if is_instance_valid(helice):
-		helice.rotate_z(24.0 * delta)
 		
 	# 1. Rastreamento e Perseguição (Suave look_at)
 	var target_dir = (player.global_position - global_position).normalized()

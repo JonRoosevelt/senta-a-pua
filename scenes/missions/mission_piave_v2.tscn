@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="2_enemy"]
-[ext_resource type="PackedScene" path="res://scenes/enemy_fighter.tscn" id="3_enemy_fighter"]
+[ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_enemy_fighter"]
 [ext_resource type="Script" path="res://scripts/mission_piave_v2.gd" id="4_script"]
 
 [node name="MissionPiaveV2" type="Node3D"]

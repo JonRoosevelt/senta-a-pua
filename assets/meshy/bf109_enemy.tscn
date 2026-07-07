@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/meshy/bf109.glb" id="1_bf109_model"]
+[ext_resource type="Script" path="res://scripts/enemy_fighter.gd" id="2_enemy_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fighter"]
+size = Vector3(8, 2, 6)
+
+[node name="EnemyFighter" type="CharacterBody3D"]
+script = ExtResource("2_enemy_script")
+
+[node name="Bf109Model" parent="." instance=ExtResource("1_bf109_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_fighter")
