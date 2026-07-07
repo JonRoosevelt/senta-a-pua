@@ -381,6 +381,59 @@ func create_ammo_dump(pos: Vector3) -> Node3D:
 
 
 # =============================================
+# ARTILLERY NEST (sandbag fortification)
+# =============================================
+func create_artillery_nest(pos: Vector3) -> Node3D:
+	var root = Node3D.new()
+	root.position = pos
+	
+	var sandbag_mat = make_material(Color(0.55, 0.48, 0.35), 0.9)
+	
+	# Sandbag walls around perimeter
+	var wall_positions = [
+		Vector3(4, 0.5, 0), Vector3(-4, 0.5, 0),
+		Vector3(0, 0.5, 4), Vector3(0, 0.5, -4)
+	]
+	for wp in wall_positions:
+		for layer in range(3):
+			add_node(root, box_mesh(Vector3(2.5, 0.6, 0.8), sandbag_mat),
+				wp + Vector3(0, layer * 0.6, 0))
+	
+	# Artillery gun
+	var gun_base_mat = make_material(COLORS["metal_dark"], 0.4, 0.5)
+	add_node(root, box_mesh(Vector3(2, 0.8, 2), gun_base_mat), Vector3(0, 0.8, 0))
+	add_node(root, box_mesh(Vector3(0.3, 0.3, 4), make_material(COLORS["metal_barrel"], 0.3, 0.9)),
+		Vector3(0, 1.5, 2.2), Vector3(-30, 0, 0))
+	
+	return root
+
+
+# =============================================
+# BOMBER (B-25 Mitchell low-poly)
+# =============================================
+func create_bomber(pos: Vector3) -> Node3D:
+	var root = Node3D.new()
+	root.position = pos
+	
+	var body_mat = make_material(Color(0.3, 0.32, 0.18), 0.7)
+	var wing_mat = make_material(Color(0.28, 0.3, 0.16), 0.7)
+	var glass_mat = make_material(Color(0.25, 0.5, 0.7, 0.5), 0.1, 0.7)
+	var metal_mat = make_material(COLORS["metal_dark"], 0.3, 0.7)
+	
+	add_node(root, box_mesh(Vector3(3, 3, 12), body_mat), Vector3.ZERO)
+	add_node(root, box_mesh(Vector3(2.2, 1.5, 2.5), glass_mat), Vector3(0, 2.2, 5))
+	add_node(root, box_mesh(Vector3(16, 0.4, 3.5), wing_mat), Vector3(0, 0.5, -0.5))
+	add_node(root, box_mesh(Vector3(0.5, 3, 1.5), body_mat), Vector3(-3, 2, -5.5))
+	add_node(root, box_mesh(Vector3(0.5, 3, 1.5), body_mat), Vector3(3, 2, -5.5))
+	
+	for ex in [-4, 4]:
+		add_node(root, box_mesh(Vector3(1.5, 1.5, 2), metal_mat), Vector3(ex, -0.8, 0))
+		add_node(root, box_mesh(Vector3(2.5, 0.1, 0.05), metal_mat), Vector3(ex, -0.8, -1.2))
+	
+	return root
+
+
+# =============================================
 # RIVER (simple blue plane)
 # =============================================
 func create_river() -> Node3D:

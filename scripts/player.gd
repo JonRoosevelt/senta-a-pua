@@ -175,7 +175,9 @@ func update_hud() -> void:
 		altitude_label.text = "ALTITUDE: %d FT" % int(global_position.y * 3.28)
 	if is_instance_valid(score_label):
 		if GameManager:
-			score_label.text = "PILOTO: %s | ALVOS: %d" % [GameManager.get_current_pilot().to_upper(), GameManager.score]
+			var missao = GameManager.get_current_mission()
+			var nome_missao = missao.get("title", "MISSÃO") if missao else "MISSÃO"
+			score_label.text = "%s | %s | ALVOS: %d" % [nome_missao, GameManager.get_current_pilot().to_upper(), GameManager.score]
 		else:
 			score_label.text = "ALVOS DESTRUÍDOS: 0"
 
