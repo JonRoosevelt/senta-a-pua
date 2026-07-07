@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/enemy.tscn" id="2_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/enemy_fighter.tscn" id="3_enemy_fighter"]
+[ext_resource type="Script" path="res://scripts/mission_piave.gd" id="4_mission_piave"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piave"]
+sky_top_color = Color(0.48, 0.64, 0.77, 1)
+sky_horizon_color = Color(0.83, 0.64, 0.45, 1)
+ground_bottom_color = Color(0.55, 0.35, 0.18, 1)
+ground_horizon_color = Color(0.78, 0.58, 0.35, 1)
+
+[sub_resource type="Sky" id="Sky_piave"]
+sky_material = SubResource("ProceduralSkyMaterial_piave")
+
+[sub_resource type="Environment" id="Environment_piave"]
+background_mode = 2
+sky = SubResource("Sky_piave")
+ambient_light_color = Color(0.42, 0.38, 0.32, 1)
+tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.8
+glow_strength = 1.0
+glow_bloom = 0.2
+fog_enabled = true
+fog_mode = 1
+fog_density = 0.012
+fog_light_color = Color(0.85, 0.75, 0.55, 1)
+fog_aerial_perspective = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.45, 0.35, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+material = SubResource("StandardMaterial3D_ground")
+size = Vector3(2400, 2, 2400)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(2400, 2, 2400)
+
+[node name="MissionPiave" type="Node3D"]
+script = ExtResource("4_mission_piave")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_piave")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 25, 0)
+light_energy = 2.2
+light_color = Color(1, 0.9, 0.7, 1)
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 150.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_ground")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+
+[node name="EnemyTowers" type="Node3D" parent="."]
+
+[node name="Tower1" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 5, -200)
+
+[node name="Tower2" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 5, -250)
+
+[node name="Tower3" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 8, -420)
+
+[node name="EnemyFighters" type="Node3D" parent="."]
+
+[node name="Fighter1" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 35, -300)
+
+[node name="Fighter2" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 30, -380)

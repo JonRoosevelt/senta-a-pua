@@ -11,64 +11,24 @@ var pilots: Array = [
 	"Ten. Josino Maia"
 ]
 
-# Mission definitions
+# === Mission 1: Batismo de Fogo — Ponte de Piave ===
 var missions: Array = [
 	{
-		"id": "patrol",
-		"title": "Missão 1: Patrulha de Combate",
-		"subtitle": "Novembro de 1944 — Vale do Pó, Itália",
-		"briefing": "O 1º GAvCa acaba de chegar ao teatro de operações italiano. Sua primeira missão é uma patrulha de combate sobre o Vale do Pó. Familiarize-se com o P-47 Thunderbolt e elimine os caças inimigos que patrulham a região. Mantenha-se atento — a Flak alemã está posicionada nas colinas.",
-		"scene": "res://scenes/missions/mission_patrol.tscn",
-		"objectives": ["Eliminar 2 caças inimigos", "Destruir 2 torres Flak"],
-		"enemy_fighters": 2,
-		"enemy_towers": 2
-	},
-	{
-		"id": "interdiction",
-		"title": "Missão 2: Interdição de Suprimentos",
-		"subtitle": "Dezembro de 1944 — Vale do Pó, Itália",
-		"briefing": "A inteligência aliada identificou um trem de suprimentos alemão cruzando uma ponte ferroviária estratégica. Sua missão é interditar essa linha de abastecimento. Destrua a ponte, o trem e as defesas antiaéreas na área. Cuidado com os caças inimigos que protegem o comboio.",
-		"scene": "res://scenes/missions/mission_interdiction.tscn",
-		"objectives": ["Destruir a ponte ferroviária", "Destruir o trem de suprimentos", "Eliminar 3 torres Flak", "Eliminar 2 caças inimigos"],
+		"id": "piave",
+		"title": "Missão 1: Batismo de Fogo",
+		"subtitle": "Novembro de 1944 — Rio Piave, Vêneto",
+		"briefing": "Recém-chegados à Itália, o 1º GAvCa recebe sua primeira missão de combate real. Uma ponte ferroviária vital sobre o Rio Piave está sendo usada pelos alemães para mover suprimentos à Linha Gótica. O comando aliado ordena sua destruição imediata.\n\nA ponte é defendida por artilharia antiaérea e caças inimigos patrulham a área. A neblina matinal do outono italiano pode dificultar a visibilidade — use-a a seu favor.\n\nLembre-se: esta é a primeira impressão do Brasil na guerra aérea. Senta a Pua!",
+		"scene": "res://scenes/missions/mission_piave.tscn",
+		"objectives": [
+			{"id": "pillar_1", "label": "Destruir pilar norte da ponte", "type": "bridge_pillar", "target": 1},
+			{"id": "pillar_2", "label": "Destruir pilar central da ponte", "type": "bridge_pillar", "target": 1},
+			{"id": "flak", "label": "Destruir 3 torres Flak", "type": "flak_tower", "target": 3},
+			{"id": "fighters", "label": "Eliminar 2 caças inimigos", "type": "fighter", "target": 2},
+		],
+		# Enemy counts for scene spawning
 		"enemy_fighters": 2,
 		"enemy_towers": 3,
-		"has_bridge": true,
-		"has_train": true
-	},
-	{
-		"id": "ground_attack",
-		"title": "Missão 3: Caça-Bombardeio",
-		"subtitle": "Janeiro de 1945 — Vale do Pó, Itália",
-		"briefing": "O avanço aliado está sendo retardado por posições de artilharia alemãs entrincheiradas. Sua missão é realizar ataques de precisão contra ninhos de artilharia, um depósito de munição inimigo e as torres Flak que protegem o perímetro. A superioridade aérea não está garantida — espere resistência.",
-		"scene": "res://scenes/missions/mission_ground_attack.tscn",
-		"objectives": ["Destruir o depósito de munição", "Destruir o ninho de artilharia", "Eliminar 4 torres Flak", "Eliminar 3 caças inimigos"],
-		"enemy_fighters": 3,
-		"enemy_towers": 4,
-		"has_ammo_dump": true,
-		"has_artillery_nest": true
-	},
-	{
-		"id": "escort",
-		"title": "Missão 4: Escolta de Bombardeiros",
-		"subtitle": "Fevereiro de 1945 — Norte da Itália",
-		"briefing": "Bombardeiros B-25 Mitchell da USAAF precisam de escolta para atacar alvos estratégicos no norte da Itália. Sua missão é proteger a formação de bombardeiros contra interceptadores inimigos. Os caças alemães estão determinados a abater os bombardeiros a qualquer custo. Não deixe nenhum passar.",
-		"scene": "res://scenes/missions/mission_escort.tscn",
-		"objectives": ["Proteger os bombardeiros", "Eliminar 4 caças inimigos"],
-		"enemy_fighters": 4,
-		"enemy_towers": 0,
-		"has_bombers": true
-	},
-	{
-		"id": "finale",
-		"title": "Missão 5: 22 de Abril de 1945",
-		"subtitle": "Ofensiva Final — Vale do Pó, Itália",
-		"briefing": "Este é o dia mais intenso da campanha. Em 22 de abril de 1945, o 1º GAvCa realizou 44 surtidas em um único dia — um recorde de combate. O esquadrão está exausto e com poucos pilotos. Todas as forças alemãs restantes estão concentradas. Destrua tudo que encontrar. Esta é a hora da verdade. Senta a Pua!",
-		"scene": "res://scenes/missions/mission_finale.tscn",
-		"objectives": ["Eliminar 5 torres Flak", "Eliminar 4 caças inimigos", "Destruir o depósito de munição", "Destruir a ponte ferroviária"],
-		"enemy_fighters": 4,
-		"enemy_towers": 5,
-		"has_bridge": true,
-		"has_ammo_dump": true
+		"checkpoint_deaths": 3,  # deaths allowed before losing a pilot
 	}
 ]
 
@@ -77,10 +37,14 @@ var missions: Array = [
 var current_pilot_index: int = 0
 var dead_pilots: Array = []
 var current_mission_index: int = 0
-var active_enemies_count: int = 0
 var score: int = 0
 var pilots_lost_this_mission: int = 0
 var mission_start_time: float = 0.0
+var deaths_at_checkpoint: int = 0
+
+# Objective tracking
+var objective_progress: Dictionary = {}  # {"obj_id": current_count}
+var objectives_completed: Array = []      # ["obj_id", ...]
 
 # === Pilot Management ===
 
@@ -99,6 +63,63 @@ func kill_current_pilot() -> void:
 func is_campaign_over() -> bool:
 	return current_pilot_index >= pilots.size()
 
+# === Objective System ===
+
+func init_objectives() -> void:
+	objective_progress.clear()
+	objectives_completed.clear()
+	var mission = get_current_mission()
+	for obj in mission.get("objectives", []):
+		objective_progress[obj["id"]] = 0
+
+func report_objective(objective_type: String) -> void:
+	var mission = get_current_mission()
+	for obj in mission.get("objectives", []):
+		if obj["type"] == objective_type and not obj["id"] in objectives_completed:
+			objective_progress[obj["id"]] = min(objective_progress.get(obj["id"], 0) + 1, obj["target"])
+			score += 1
+			
+			if objective_progress[obj["id"]] >= obj["target"]:
+				objectives_completed.append(obj["id"])
+				_check_mission_complete()
+			return
+
+func _check_mission_complete() -> void:
+	var mission = get_current_mission()
+	var all_done = true
+	for obj in mission.get("objectives", []):
+		if not obj["id"] in objectives_completed:
+			all_done = false
+			break
+	
+	if all_done:
+		await get_tree().create_timer(2.0).timeout
+		if current_mission_index < missions.size() - 1:
+			get_tree().change_scene_to_file("res://scenes/mission_complete.tscn")
+		else:
+			get_tree().change_scene_to_file("res://scenes/victory.tscn")
+
+# === Checkpoint System ===
+
+func checkpoint_death() -> bool:
+	"""Returns true if pilot should be lost (too many deaths at checkpoint)"""
+	var mission = get_current_mission()
+	var max_deaths = mission.get("checkpoint_deaths", 3)
+	deaths_at_checkpoint += 1
+	if deaths_at_checkpoint >= max_deaths:
+		kill_current_pilot()
+		deaths_at_checkpoint = 0
+		return true
+	return false
+
+func reset_checkpoint_deaths() -> void:
+	deaths_at_checkpoint = 0
+
+func save_checkpoint() -> void:
+	# Save progress (objectives already stored in objective_progress/objectives_completed)
+	deaths_at_checkpoint = 0
+	print("[Checkpoint] Progresso salvo. Objetivos completados: ", objectives_completed)
+
 # === Mission Management ===
 
 func get_current_mission() -> Dictionary:
@@ -113,41 +134,28 @@ func start_campaign() -> void:
 	score = 0
 
 func start_mission() -> void:
-	active_enemies_count = 0
 	pilots_lost_this_mission = 0
 	mission_start_time = Time.get_ticks_msec() / 1000.0
+	deaths_at_checkpoint = 0
+	init_objectives()
 
 func complete_mission() -> void:
 	current_mission_index += 1
 
-func register_enemy() -> void:
-	active_enemies_count += 1
-
-func enemy_destroyed() -> void:
-	active_enemies_count -= 1
-	score += 1
-	
-	# Check victory condition
-	if active_enemies_count <= 0:
-		await get_tree().create_timer(1.5).timeout
-		
-		if current_mission_index < missions.size() - 1:
-			# More missions ahead — go to mission complete screen
-			get_tree().change_scene_to_file("res://scenes/mission_complete.tscn")
-		else:
-			# Final mission complete — campaign victory
-			get_tree().change_scene_to_file("res://scenes/victory.tscn")
-
 # === Helpers ===
-
-func get_mission_elapsed_time() -> float:
-	if mission_start_time == 0:
-		return 0.0
-	return (Time.get_ticks_msec() / 1000.0) - mission_start_time
 
 func get_remaining_pilots() -> int:
 	return pilots.size() - current_pilot_index
 
-func get_total_enemies_in_mission() -> int:
-	var m = get_current_mission()
-	return m.get("enemy_fighters", 0) + m.get("enemy_towers", 0)
+func get_objective_status() -> Array:
+	"""Returns array of {label, progress, target, done} for HUD"""
+	var result = []
+	var mission = get_current_mission()
+	for obj in mission.get("objectives", []):
+		result.append({
+			"label": obj["label"],
+			"progress": objective_progress.get(obj["id"], 0),
+			"target": obj["target"],
+			"done": obj["id"] in objectives_completed
+		})
+	return result

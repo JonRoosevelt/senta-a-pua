@@ -19,10 +19,8 @@ var fire_timer: float = 0.0
 func _ready() -> void:
 	health = max_health
 	player = get_node_or_null("/root/Main/Player")
-	
-	# Registra a si mesmo no GameManager global
-	if GameManager:
-		GameManager.register_enemy()
+	if not player:
+		player = get_tree().current_scene.get_node_or_null("Player")
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -95,7 +93,7 @@ func explode() -> void:
 	
 	# Notifica o GameManager
 	if GameManager:
-		GameManager.enemy_destroyed()
+		GameManager.report_objective("fighter")
 		
 	print("Caça inimigo abatido!")
 	queue_free()

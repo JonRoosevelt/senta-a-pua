@@ -13,10 +13,9 @@ var fire_timer: float = 0.0
 func _ready() -> void:
 	# Procura pelo jogador na cena principal
 	player = get_node_or_null("/root/Main/Player")
-	
-	# Registra a si mesmo no GameManager global
-	if GameManager:
-		GameManager.register_enemy()
+	if not player:
+		# Try finding by scene path
+		player = get_tree().current_scene.get_node_or_null("Player")
 
 func _physics_process(delta: float) -> void:
 	if not player or player.is_dead:
@@ -67,7 +66,7 @@ func take_damage(amount: float) -> void:
 	
 	# Notifica o GameManager da destruição
 	if GameManager:
-		GameManager.enemy_destroyed()
+		GameManager.report_objective("flak_tower")
 	
 	print("Torre inimiga destruída!")
 	queue_free()

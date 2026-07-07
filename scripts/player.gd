@@ -195,12 +195,13 @@ func crash() -> void:
 	for child in get_children():
 		if child is MeshInstance3D:
 			child.visible = false
-			
-	# Notifica a perda do piloto ao GameManager
+	
+	# Checkpoint: perde piloto só depois de X mortes
+	var lost_pilot = false
 	if GameManager:
-		GameManager.kill_current_pilot()
+		lost_pilot = GameManager.checkpoint_death()
 		
-	print("Bateu ou foi derrubado! Gerenciando estado da campanha...")
+	print("Bateu ou foi derrubado!")
 	
 	# Aguarda 1.5 segundos para o jogador ver a explosão antes de reiniciar
 	await get_tree().create_timer(1.5).timeout
