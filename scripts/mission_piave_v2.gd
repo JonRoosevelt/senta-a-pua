@@ -188,8 +188,8 @@ func _populate_assets() -> void:
 	bridge.objective_type = "bridge_pillar"
 	var model = bridge.get_node("BridgeModel")
 	if model:
-		model.scale = Vector3(25, 15, 15)
-		model.rotation_degrees = Vector3(0, 90, 0)  # rotate on Y to span X axis
+		model.scale = Vector3(20, 12, 12)
+		model.rotation_degrees = Vector3(0, -45, 0)  # Align tracks to X axis (perpendicular to river Z)
 	add_child(bridge)
 	
 	b.queue_free()
