@@ -241,9 +241,20 @@ func _spawn_glb(path: String, pos: Vector3, scl: Vector3, rot: Vector3) -> Node3
 	instance.position = pos
 	instance.scale = scl
 	instance.rotation_degrees = rot
+	
+	# Disable all collision on scenery assets
+	_remove_collisions(instance)
+	
 	add_child(instance)
 	print("  -> Spawned OK, child count now: ", get_child_count())
 	return instance
+
+func _remove_collisions(node: Node) -> void:
+	for child in node.get_children():
+		if child is CollisionShape3D or child is StaticBody3D or child is CharacterBody3D:
+			child.queue_free()
+		else:
+			_remove_collisions(child)
 
 func _add_collision(node: Node3D, size: Vector3) -> void:
 	var body = StaticBody3D.new()
