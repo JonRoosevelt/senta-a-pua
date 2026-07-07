@@ -181,11 +181,26 @@ func _populate_assets() -> void:
 	var rocks_mountain = b.create_rocks(15, Vector3(-200, 0, -320), Vector2(80, 50))
 	add_child(rocks_mountain)
 	
-	# Bridge (destructible)
-	var old_b = load("res://scripts/scene_builder.gd").new()
-	var bridge = old_b.create_destructible_bridge(Vector3(0, 0, -280), 3)
+	# Bridge using Meshy model (destructible with bridge_segment.gd)
+	var bridge_scene = load("res://assets/meshy/bridge_segment.tscn")
+	var bridge = bridge_scene.instantiate()
+	bridge.position = Vector3(0, 0, -280)
+	
+	# Fix model scale and rotation
+	var bridge_model = bridge.get_node("BridgeModel")
+	if bridge_model:
+		bridge_model.scale = Vector3(3, 3, 3)
+		bridge_model.rotation_degrees = Vector3(0, 0, 0)
 	add_child(bridge)
-	old_b.queue_free()
+	
+	# Second bridge segment for length
+	var bridge2 = bridge_scene.instantiate()
+	bridge2.position = Vector3(0, 0, -310)
+	bridge2.objective_type = "bridge_pillar"
+	var bridge_model2 = bridge2.get_node("BridgeModel")
+	if bridge_model2:
+		bridge_model2.scale = Vector3(3, 3, 3)
+	add_child(bridge2)
 	
 	b.queue_free()
 	print("[Piave v2] Scene ready with dense vegetation.")
