@@ -13,6 +13,12 @@ var is_dead: bool = false
 
 func _ready() -> void:
 	health = max_health
+	# Disable collision response so bridge doesn't get damaged by ground/objects
+	collision_layer = 0
+	collision_mask = 0
+	
+	# Re-enable only bullet collision via Area3D signals
+	# The bridge takes damage only from bullet.gd calling take_damage() directly
 
 func take_damage(amount: float) -> void:
 	if is_dead:
