@@ -54,17 +54,29 @@ func create_ground() -> StaticBody3D:
 	var root = StaticBody3D.new()
 	root.name = "Ground"
 	
-	var mat = _make_mat(BOX_COLORS["ground_autumn"], 0.9)
+	# Ground with a simple gradient material (not just flat brown)
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = Color(0.48, 0.38, 0.2)  # warm earth
+	mat.roughness = 0.95
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
+	# Use UV1 for a subtle detail
+	mat.uv1_scale = Vector3(20, 20, 20)
+	mat.detail_enabled = true
+	mat.detail_albedo = Color(0.55, 0.45, 0.25)
+	mat.detail_uv_layer = 1
+	
 	var mi = MeshInstance3D.new()
-	var mesh = BoxMesh.new()
-	mesh.size = Vector3(3000, 0.5, 3000)
+	var mesh = PlaneMesh.new()
+	mesh.size = Vector2(2000, 2000)
 	mesh.material = mat
 	mi.mesh = mesh
+	mi.position = Vector3(0, -0.5, 0)
 	root.add_child(mi)
 	
 	var col = CollisionShape3D.new()
 	col.shape = BoxShape3D.new()
-	col.shape.size = Vector3(3000, 1, 3000)
+	col.shape.size = Vector3(2000, 1, 2000)
+	col.position = Vector3(0, -0.5, 0)
 	root.add_child(col)
 	
 	return root
@@ -116,7 +128,7 @@ func create_forest(count: int, center: Vector3, area: Vector2) -> Node3D:
 		var x = center.x + randf_range(-area.x/2, area.x/2)
 		var z = center.z + randf_range(-area.y/2, area.y/2)
 		var tree_type = tree_types[randi() % tree_types.size()]
-		var s = randf_range(0.8, 1.3)
+		var s = randf_range(2.5, 4.5)  # Much bigger scale for visibility
 		var rot = Vector3(0, randf_range(0, 360), 0)
 		_spawn_mesh(root, ASSETS[tree_type], Vector3(x, 0, z), rot, s)
 	
@@ -136,7 +148,7 @@ func create_rocks(count: int, center: Vector3, area: Vector2) -> Node3D:
 		var x = center.x + randf_range(-area.x/2, area.x/2)
 		var z = center.z + randf_range(-area.y/2, area.y/2)
 		var rock_type = rock_types[randi() % rock_types.size()]
-		var s = randf_range(0.6, 1.5)
+		var s = randf_range(2.0, 5.0)  # Bigger rocks
 		var rot = Vector3(randf_range(-10, 10), randf_range(0, 360), randf_range(-10, 10))
 		_spawn_mesh(root, ASSETS[rock_type], Vector3(x, 0, z), rot, s)
 	
@@ -170,12 +182,12 @@ func create_mountains() -> Node3D:
 	var root = Node3D.new()
 	root.name = "Mountains"
 	
-	# Single solid mountain silhouettes (not stacked floating boxes)
+	# Single solid mountain silhouettes closer to player
 	var configs = [
-		{"pos": Vector3(-300, 50, -550), "w": 160, "h": 200, "d": 100},
-		{"pos": Vector3(-80, 60, -600), "w": 140, "h": 240, "d": 90},
-		{"pos": Vector3(150, 55, -580), "w": 150, "h": 210, "d": 95},
-		{"pos": Vector3(350, 45, -520), "w": 130, "h": 180, "d": 85},
+		{"pos": Vector3(-250, 60, -400), "w": 140, "h": 180, "d": 90},
+		{"pos": Vector3(-50, 70, -450), "w": 120, "h": 210, "d": 80},
+		{"pos": Vector3(180, 55, -430), "w": 130, "h": 190, "d": 85},
+		{"pos": Vector3(320, 45, -380), "w": 110, "h": 160, "d": 75},
 	]
 	
 	for cfg in configs:
