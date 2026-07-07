@@ -15,8 +15,8 @@ func _ready() -> void:
 	
 	# Build objectives list
 	var objective_text = "OBJETIVOS:\n"
-	for i in range(mission["objectives"].size()):
-		objective_text += "  • " + mission["objectives"][i] + "\n"
+	for obj in mission["objectives"]:
+		objective_text += "  • " + obj["label"] + "\n"
 	objectives_label.text = objective_text
 	
 	pilot_label.text = "PILOTO: " + GameManager.get_current_pilot().to_upper() + \
