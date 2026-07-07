@@ -67,10 +67,11 @@ func _build_terrain() -> void:
 	ground.add_child(ground_col)
 	add_child(ground)
 	
-	# Ground visual (PlaneMesh with warm earth material)
+	# Ground visual (PlaneMesh with procedural grass texture)
 	var ground_mat = StandardMaterial3D.new()
-	ground_mat.albedo_color = Color(0.42, 0.35, 0.2)
+	ground_mat.albedo_texture = preload("res://scripts/ground_texture.gd").generate()
 	ground_mat.roughness = 0.92
+	ground_mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	
 	var ground_vis = MeshInstance3D.new()
 	ground_vis.name = "GroundVisual"

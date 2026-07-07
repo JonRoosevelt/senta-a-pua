@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_enemy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_base"]
-albedo_color = Color(0.45, 0.42, 0.4, 1)
+albedo_color = Color(0.42, 0.41, 0.39, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_base"]
@@ -20,16 +20,16 @@ material = SubResource("StandardMaterial3D_platform")
 size = Vector3(3, 0.6, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_barrel"]
-albedo_color = Color(0.15, 0.15, 0.18, 1)
-roughness = 0.3
-metallic = 0.8
+albedo_color = Color(0.18, 0.18, 0.2, 1)
+roughness = 0.25
+metallic = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_barrel"]
 material = SubResource("StandardMaterial3D_barrel")
 size = Vector3(0.4, 0.4, 6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shield"]
-albedo_color = Color(0.22, 0.24, 0.22, 1)
+albedo_color = Color(0.24, 0.25, 0.22, 1)
 roughness = 0.5
 metallic = 0.5
 
