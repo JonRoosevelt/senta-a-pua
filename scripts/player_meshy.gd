@@ -36,7 +36,7 @@ func _ready() -> void:
 	var model = $P47Model
 	if model:
 		model.rotation_degrees = Vector3(0, -90, 0)  # face forward (-Z)
-		model.scale = Vector3(3, 3, 3)  # Scale up 3x
+		model.scale = Vector3(8, 8, 8)  # Scale up to proper aircraft size
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
