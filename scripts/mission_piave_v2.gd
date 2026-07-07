@@ -160,19 +160,32 @@ func _add_mountain(x: float, z: float, width: float, height: float, depth: float
 func _populate_assets() -> void:
 	var b = load("res://scripts/scene_builder_assets.gd").new()
 	
-	# Trees
-	var forest = b.create_forest(35, Vector3(0, 0, -200), Vector2(350, 200))
-	add_child(forest)
+	# Dense tree clusters (Po Valley = agricultural + forest patches)
+	# Multiple clusters instead of one spread
+	var forest1 = b.create_forest(25, Vector3(-100, 0, -150), Vector2(80, 60))
+	add_child(forest1)
 	
-	# Rocks
-	var rocks = b.create_rocks(20, Vector3(0, 0, -200), Vector2(250, 150))
-	add_child(rocks)
+	var forest2 = b.create_forest(20, Vector3(80, 0, -200), Vector2(70, 60))
+	add_child(forest2)
 	
-	# Bridge (destructible, using old builder)
+	var forest3 = b.create_forest(30, Vector3(0, 0, -100), Vector2(100, 80))
+	add_child(forest3)
+	
+	var forest4 = b.create_forest(15, Vector3(-180, 0, -250), Vector2(50, 40))
+	add_child(forest4)
+	
+	# Rocks near river and mountain bases
+	var rocks_river = b.create_rocks(12, Vector3(0, 0, -200), Vector2(60, 40))
+	add_child(rocks_river)
+	
+	var rocks_mountain = b.create_rocks(15, Vector3(-200, 0, -320), Vector2(80, 50))
+	add_child(rocks_mountain)
+	
+	# Bridge (destructible)
 	var old_b = load("res://scripts/scene_builder.gd").new()
 	var bridge = old_b.create_destructible_bridge(Vector3(0, 0, -280), 3)
 	add_child(bridge)
 	old_b.queue_free()
 	
 	b.queue_free()
-	print("[Piave v2] Scene ready.")
+	print("[Piave v2] Scene ready with dense vegetation.")
