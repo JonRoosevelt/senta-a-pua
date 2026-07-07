@@ -181,22 +181,16 @@ func _populate_assets() -> void:
 	var rocks_mountain = b.create_rocks(15, Vector3(-200, 0, -320), Vector2(80, 50))
 	add_child(rocks_mountain)
 	
-	# Bridge using Meshy model (multiple segments to cross the river)
+	# Single bridge spanning the river (scaled up to cross both sides)
 	var bridge_scene = load("res://assets/meshy/bridge_segment.tscn")
-	var river_width = 40.0
-	var bridge_z_start = -280
-	var segments = 4
-	var segment_spacing = river_width / segments
-	
-	for i in range(segments):
-		var seg = bridge_scene.instantiate()
-		seg.position = Vector3(0, 0, bridge_z_start + i * segment_spacing)
-		seg.objective_type = "bridge_pillar" if i == 0 or i == segments - 1 else "bridge_pillar"
-		var model = seg.get_node("BridgeModel")
-		if model:
-			model.scale = Vector3(12, 12, 12)  # Much bigger to span river
-			model.rotation_degrees = Vector3(0, 90, 0)  # Rotate to span across river
-		add_child(seg)
+	var bridge = bridge_scene.instantiate()
+	bridge.position = Vector3(0, 0, -280)
+	bridge.objective_type = "bridge_pillar"
+	var model = bridge.get_node("BridgeModel")
+	if model:
+		model.scale = Vector3(25, 15, 15)  # Wide enough to span 40m river
+		model.rotation_degrees = Vector3(0, -90, 0)  # Span X axis across river
+	add_child(bridge)
 	
 	b.queue_free()
 	print("[Piave v2] Scene ready with dense vegetation.")
