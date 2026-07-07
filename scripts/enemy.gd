@@ -53,7 +53,7 @@ func shoot_at_player() -> void:
 	# Orienta o projétil na direção do voo
 	bullet.look_at(bullet.global_position + dir, Vector3.UP)
 
-func take_damage(amount: float) -> void:
+func take_damage(_amount: float) -> void:
 	# Instancia o efeito de explosão 3D
 	var expl = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(expl)

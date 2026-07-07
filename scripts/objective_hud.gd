@@ -1,7 +1,7 @@
 # objective_hud.gd - Painel de objetivos no canto superior direito
-extends Control
+extends PanelContainer
 
-@onready var obj_container: VBoxContainer = $ObjectivesPanel/VBoxContainer
+@onready var obj_container: VBoxContainer = $VBoxContainer
 
 func _ready() -> void:
 	_refresh_objectives()

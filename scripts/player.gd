@@ -197,9 +197,8 @@ func crash() -> void:
 			child.visible = false
 	
 	# Checkpoint: perde piloto só depois de X mortes
-	var lost_pilot = false
 	if GameManager:
-		lost_pilot = GameManager.checkpoint_death()
+		GameManager.checkpoint_death()
 		
 	print("Bateu ou foi derrubado!")
 	
