@@ -139,6 +139,11 @@ func crash() -> void:
 	get_tree().current_scene.add_child(expl)
 	expl.global_position = global_position
 	
+	# Hide the model
+	var model = $P47Model
+	if model:
+		model.visible = false
+	
 	if GameManager:
 		GameManager.checkpoint_death()
 	
