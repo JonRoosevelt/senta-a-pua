@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/meshy/flak88.glb" id="1_flak_model"]
+[ext_resource type="Script" path="res://scripts/enemy_meshy.gd" id="2_flak_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flak"]
+size = Vector3(6, 6, 6)
+
+[node name="Enemy" type="StaticBody3D"]
+script = ExtResource("2_flak_script")
+
+[node name="Flak88Model" parent="." instance=ExtResource("1_flak_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_flak")

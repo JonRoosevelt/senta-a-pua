@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/meshy/farmhouse.glb" id="1_house_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_house"]
+size = Vector3(8, 10, 8)
+
+[node name="Farmhouse" type="StaticBody3D"]
+
+[node name="HouseModel" parent="." instance=ExtResource("1_house_model")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_house")
