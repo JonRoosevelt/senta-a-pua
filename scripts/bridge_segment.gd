@@ -45,6 +45,8 @@ func explode() -> void:
 		if child is MeshInstance3D:
 			child.visible = false
 	
-	# Disable collision
-	if $CollisionShape3D:
-		$CollisionShape3D.disabled = true
+	# Disable collision safely
+	for child in get_children():
+		if child is CollisionShape3D:
+			child.disabled = true
+			break

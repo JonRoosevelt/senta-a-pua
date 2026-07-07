@@ -35,7 +35,7 @@ func _make_mat(color: Color, rough: float = 0.8) -> StandardMaterial3D:
 	m.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
 	return m
 
-func _spawn_mesh(parent: Node, path: String, pos: Vector3, rot_deg: Vector3 = Vector3.ZERO, scale: float = 1.0) -> void:
+func _spawn_mesh(parent: Node, path: String, pos: Vector3, rot_deg: Vector3 = Vector3.ZERO, scl: float = 1.0) -> void:
 	var loaded = load(path)
 	if not loaded:
 		print("[WARN] Failed to load: ", path)
@@ -43,7 +43,7 @@ func _spawn_mesh(parent: Node, path: String, pos: Vector3, rot_deg: Vector3 = Ve
 	var instance = loaded.instantiate()
 	instance.position = pos
 	instance.rotation_degrees = rot_deg
-	instance.scale = Vector3(scale, scale, scale)
+	instance.scale = Vector3(scl, scl, scl)
 	parent.add_child(instance)
 
 
