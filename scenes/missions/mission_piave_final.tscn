@@ -17,7 +17,11 @@
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
 
+[sub_resource type="Sky" id="Sky_45efc"]
+
 [sub_resource type="Environment" id="Environment_nd26m"]
+background_mode = 2
+sky = SubResource("Sky_45efc")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_58114"]
 size = Vector3(1.6152344, 0.8564453, 0.23883057)
