@@ -22,7 +22,12 @@ func _setup_environment() -> void:
 	# PanoramaSky wraps the image around a sphere - 360° immersive background
 	var sky = Sky.new()
 	var panorama = PanoramaSkyMaterial.new()
-	panorama.panorama = load("res://assets/terrain/po_valley_bg_360.png")
+	var img = load("res://assets/terrain/po_valley_bg_360.png")
+	if img:
+		panorama.panorama = img
+		print("[Sky] Panorama loaded successfully")
+	else:
+		print("[Sky] ERROR: Could not load panorama image")
 	sky.sky_material = panorama
 	env.sky = sky
 	
