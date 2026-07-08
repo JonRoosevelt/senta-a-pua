@@ -1,145 +1,177 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene format=3 uid="uid://ctep1g7nkby04"]
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_flak"]
 [ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_bf109"]
-[ext_resource type="PackedScene" path="res://assets/meshy/railway_bridge.glb" id="4_bridge"]
-[ext_resource type="PackedScene" path="res://assets/meshy/steam_train.glb" id="5_train"]
-[ext_resource type="PackedScene" path="res://assets/meshy/boxcar.glb" id="6_boxcar"]
-[ext_resource type="PackedScene" path="res://assets/meshy/farmhouse.glb" id="7_farmhouse"]
-[ext_resource type="PackedScene" path="res://assets/meshy/church.glb" id="8_church"]
-[ext_resource type="PackedScene" path="res://assets/meshy/village_building.glb" id="9_vbuilding"]
-[ext_resource type="PackedScene" path="res://assets/meshy/cypress.glb" id="10_cypress"]
-[ext_resource type="PackedScene" path="res://assets/meshy/bunker.glb" id="11_bunker"]
-[ext_resource type="PackedScene" path="res://assets/meshy/ammo_depot.glb" id="12_ammo"]
+[ext_resource type="PackedScene" uid="uid://bfg88tpujn32w" path="res://assets/meshy/railway_bridge.glb" id="4_bridge"]
+[ext_resource type="PackedScene" uid="uid://d4geqq1n6yoda" path="res://assets/meshy/steam_train.glb" id="5_train"]
+[ext_resource type="PackedScene" uid="uid://cijsxkayt2fo1" path="res://assets/meshy/boxcar.glb" id="6_boxcar"]
+[ext_resource type="PackedScene" uid="uid://4rth3nvg5qt0" path="res://assets/meshy/farmhouse.glb" id="7_farmhouse"]
+[ext_resource type="PackedScene" uid="uid://bn80bodel4yfe" path="res://assets/meshy/church.glb" id="8_church"]
+[ext_resource type="PackedScene" uid="uid://bd3ctlbwixj1e" path="res://assets/meshy/village_building.glb" id="9_vbuilding"]
+[ext_resource type="PackedScene" uid="uid://vndrs0omrdxy" path="res://assets/meshy/cypress.glb" id="10_cypress"]
+[ext_resource type="PackedScene" uid="uid://k3fur8sq12c2" path="res://assets/meshy/bunker.glb" id="11_bunker"]
+[ext_resource type="PackedScene" uid="uid://d3pkc6plx7cay" path="res://assets/meshy/ammo_depot.glb" id="12_ammo"]
 [ext_resource type="PackedScene" path="res://scenes/environment/ground.tscn" id="13_ground"]
 [ext_resource type="PackedScene" path="res://scenes/environment/mountain.tscn" id="14_mountain"]
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
-[ext_resource type="Script" path="res://scripts/mission_piave_final.gd" id="16_script"]
+[ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_player"]
-size = Vector3(9, 2.5, 7)
+[sub_resource type="BoxShape3D" id="BoxShape3D_58114"]
+size = Vector3(1.6152344, 0.8564453, 0.23883057)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_flak"]
-size = Vector3(6, 6, 6)
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0rwa"]
+size = Vector3(1.699585, 0.3071289, 0.42523193)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fighter"]
-size = Vector3(8, 2, 6)
+[sub_resource type="BoxShape3D" id="BoxShape3D_adubl"]
+size = Vector3(1.5871582, 0.6972656, 0.60668945)
 
-[node name="MissionPiave" type="Node3D"]
+[node name="MissionPiave" type="Node3D" unique_id=723406387]
 script = ExtResource("16_script")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1619592880]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=612465831]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 20, 0)
-light_energy = 3.0
 light_color = Color(1, 0.9, 0.72, 1)
+light_energy = 3.0
 shadow_enabled = true
 
-; === PLAYER ===
-[node name="Player" parent="." instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=1929496673 instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
-; === TERRAIN ===
-[node name="Terrain" type="Node3D" parent="."]
+[node name="Terrain" type="Node3D" parent="." unique_id=376116056]
 
-[node name="Ground" parent="Terrain" instance=ExtResource("13_ground")]
+[node name="Ground" parent="Terrain" unique_id=1784689828 instance=ExtResource("13_ground")]
 
-[node name="Mountain1" parent="Terrain" instance=ExtResource("14_mountain")]
+[node name="Mountain1" parent="Terrain" unique_id=634019484 instance=ExtResource("14_mountain")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -400)
 
-[node name="Mountain2" parent="Terrain" instance=ExtResource("14_mountain")]
+[node name="Mountain2" parent="Terrain" unique_id=1139090616 instance=ExtResource("14_mountain")]
 transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, -450)
 
-[node name="Mountain3" parent="Terrain" instance=ExtResource("14_mountain")]
+[node name="Mountain3" parent="Terrain" unique_id=2060561936 instance=ExtResource("14_mountain")]
 transform = Transform3D(0.9, 0, 0, 0, 0.8, 0, 0, 0, 0.9, 200, 0, -420)
 
-; === RIVER ===
-[node name="River" type="Node3D" parent="."]
+[node name="River" type="Node3D" parent="." unique_id=1921953790]
 
-[node name="RivSeg1" parent="River" instance=ExtResource("15_river")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400, 0.08, -180)
+[node name="RivSeg3" parent="River" unique_id=141770671 instance=ExtResource("15_river")]
+transform = Transform3D(-0.04660305, 0, 0.99891347, 0, 1, 0, -0.99891347, 0, -0.04660305, 0.8782959, 0.066054486, -176.17325)
 
-[node name="RivSeg2" parent="River" instance=ExtResource("15_river")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0.08, -180)
+[node name="Enemies" type="Node3D" parent="." unique_id=1720147066]
 
-[node name="RivSeg3" parent="River" instance=ExtResource("15_river")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -180)
-
-[node name="RivSeg4" parent="River" instance=ExtResource("15_river")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, 0.08, -180)
-
-[node name="RivSeg5" parent="River" instance=ExtResource("15_river")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 400, 0.08, -180)
-
-; === ENEMIES ===
-[node name="Enemies" type="Node3D" parent="."]
-
-[node name="Flak1" parent="Enemies" instance=ExtResource("2_flak")]
+[node name="Flak1" parent="Enemies" unique_id=1349821539 instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 2, -130)
 
-[node name="Flak2" parent="Enemies" instance=ExtResource("2_flak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 2, -130)
+[node name="Flak2" parent="Enemies" unique_id=1597833706 instance=ExtResource("2_flak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0.65592766, -130)
 
-[node name="Flak3" parent="Enemies" instance=ExtResource("2_flak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -220)
+[node name="Flak3" parent="Enemies" unique_id=1105601319 instance=ExtResource("2_flak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44849968, -220)
 
-[node name="Bf109_1" parent="Enemies" instance=ExtResource("3_bf109")]
+[node name="Bf109_1" parent="Enemies" unique_id=265301980 instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 30, -250)
 
-[node name="Bf109_2" parent="Enemies" instance=ExtResource("3_bf109")]
+[node name="Bf109_2" parent="Enemies" unique_id=897537571 instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 28, -300)
 
-; === SCENERY ===
-[node name="Scenery" type="Node3D" parent="."]
+[node name="Scenery" type="Node3D" parent="." unique_id=2023639425]
 
-[node name="Bridge" parent="Scenery" instance=ExtResource("4_bridge")]
-transform = Transform3D(25, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, -180)
+[node name="Bridge" parent="Scenery" unique_id=302425580 instance=ExtResource("4_bridge")]
+transform = Transform3D(0.50757986, 0, -90.376656, 0, 43.770287, 0, 45.994728, 0, 0.9973615, -1.7318611, 15.506483, -178.54298)
 
-[node name="SteamTrain" parent="Scenery" instance=ExtResource("5_train")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -220)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Bridge" unique_id=2041123741]
 
-[node name="Boxcar1" parent="Scenery" instance=ExtResource("6_boxcar")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -245)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Bridge/StaticBody3D" unique_id=268094248]
+transform = Transform3D(1, 0, 1.8626451e-09, 0, 1, 0, 0, 0, 1, 0.017500162, 0.071777344, -0.0016516093)
+shape = SubResource("BoxShape3D_58114")
 
-[node name="Boxcar2" parent="Scenery" instance=ExtResource("6_boxcar")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -263)
+[node name="SteamTrain" parent="Scenery" unique_id=1236111344 instance=ExtResource("5_train")]
+transform = Transform3D(0.02517985, 0, -36.209175, 0, 33.033833, 0, 41.970848, 0, 0.02172321, -1.3827219, 22.912031, -181.47665)
 
-[node name="Boxcar3" parent="Scenery" instance=ExtResource("6_boxcar")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -281)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/SteamTrain" unique_id=952682180]
 
-[node name="Church" parent="Scenery" instance=ExtResource("8_church")]
-transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -60, 0, -100)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/SteamTrain/StaticBody3D" unique_id=525605661]
+transform = Transform3D(0.99988043, 0, -5.820766e-11, 0, 0.99991333, 0, -2.1827873e-08, 0, 0.99999964, 0.058417797, 0.039085507, 0.013336144)
+shape = SubResource("BoxShape3D_v0rwa")
 
-[node name="Farmhouse1" parent="Scenery" instance=ExtResource("7_farmhouse")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -90, 0, -85)
+[node name="Boxcar1" parent="Scenery" unique_id=1704428022 instance=ExtResource("6_boxcar")]
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -123.447235)
 
-[node name="Farmhouse2" parent="Scenery" instance=ExtResource("7_farmhouse")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -85, 0, -115)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar1" unique_id=30073096]
 
-[node name="Farmhouse3" parent="Scenery" instance=ExtResource("7_farmhouse")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -40, 0, -80)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar1/StaticBody3D" unique_id=125928479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+shape = SubResource("BoxShape3D_adubl")
 
-[node name="Farmhouse4" parent="Scenery" instance=ExtResource("7_farmhouse")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -35, 0, -120)
+[node name="Boxcar2" parent="Scenery" unique_id=1877943706 instance=ExtResource("6_boxcar")]
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -95.50233)
 
-[node name="Village1" parent="Scenery" instance=ExtResource("9_vbuilding")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 140, 0, -80)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar2" unique_id=1641217808]
 
-[node name="Village2" parent="Scenery" instance=ExtResource("9_vbuilding")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 160, 0, -95)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar2/StaticBody3D" unique_id=125807692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+shape = SubResource("BoxShape3D_adubl")
 
-[node name="Bunker" parent="Scenery" instance=ExtResource("11_bunker")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 60, 0, -210)
+[node name="Boxcar3" parent="Scenery" unique_id=1199762621 instance=ExtResource("6_boxcar")]
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -66.81194)
 
-[node name="AmmoDepot" parent="Scenery" instance=ExtResource("12_ammo")]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -200, 0, -280)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar3" unique_id=1669031757]
 
-[node name="Cypress1" parent="Scenery" instance=ExtResource("10_cypress")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -150, 0, -230)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar3/StaticBody3D" unique_id=1616668466]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+shape = SubResource("BoxShape3D_adubl")
 
-[node name="Cypress2" parent="Scenery" instance=ExtResource("10_cypress")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, -240)
+[node name="Boxcar4" parent="Scenery" unique_id=600322103 instance=ExtResource("6_boxcar")]
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -36.811943)
 
-[node name="Cypress3" parent="Scenery" instance=ExtResource("10_cypress")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 0, -130)
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar4" unique_id=1251497066]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar4/StaticBody3D" unique_id=1320863540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+shape = SubResource("BoxShape3D_adubl")
+
+[node name="Boxcar5" parent="Scenery" unique_id=859437722 instance=ExtResource("6_boxcar")]
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -6.811943)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar5" unique_id=1990544641]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar5/StaticBody3D" unique_id=1057070450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+shape = SubResource("BoxShape3D_adubl")
+
+[node name="Church" parent="Scenery" unique_id=1383382718 instance=ExtResource("8_church")]
+transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -55.350407, 17.640226, -99.38302)
+
+[node name="Farmhouse1" parent="Scenery" unique_id=2141205650 instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -90, 9.214699, -85)
+
+[node name="Farmhouse2" parent="Scenery" unique_id=1651667647 instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -85, 9.32205, -115)
+
+[node name="Farmhouse3" parent="Scenery" unique_id=1102822655 instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -40, 9.160069, -80)
+
+[node name="Farmhouse4" parent="Scenery" unique_id=624284677 instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -35, 9.243459, -120)
+
+[node name="Farmhouse5" parent="Scenery" unique_id=149054320 instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 177.0803, 9.243459, -86.149574)
+
+[node name="Village1" parent="Scenery" unique_id=203574989 instance=ExtResource("9_vbuilding")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 140, 13.784016, -80)
+
+[node name="Bunker" parent="Scenery" unique_id=868641353 instance=ExtResource("11_bunker")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 79.58526, 8.432358, -238.86209)
+
+[node name="AmmoDepot" parent="Scenery" unique_id=2121329284 instance=ExtResource("12_ammo")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -200, 8.389858, -280)
+
+[node name="Cypress1" parent="Scenery" unique_id=2037828762 instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -150, 10.179142, -230)
+
+[node name="Cypress2" parent="Scenery" unique_id=2007938599 instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 9.684956, -240)
+
+[node name="Cypress3" parent="Scenery" unique_id=1690284098 instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 9.271315, -130)

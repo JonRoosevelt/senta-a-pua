@@ -136,3 +136,35 @@ game asset, solid flat colors
 - **Poly count:** 500-2000 triangles (baixo)
 - **Textures:** Solid colors / flat shading (não realista)
 - **Formato download:** `.glb` (GLTF Binary)
+
+---
+
+## 🛤️ NOVOS: Trilhos e Infraestrutura Ferroviária
+
+### Trilho reto (tile modular)
+```
+low poly straight railway track section, wooden sleepers,
+steel rails, gravel ballast base, modular tileable,
+standard gauge, game asset, solid flat colors
+```
+
+### Trilho curva esquerda
+```
+low poly curved railway track turning left, wooden sleepers,
+steel rails, gravel ballast base, 45 degree curve,
+standard gauge, game asset, solid flat colors
+```
+
+### Trilho curva direita
+```
+low poly curved railway track turning right, wooden sleepers,
+steel rails, gravel ballast base, 45 degree curve,
+standard gauge, game asset, solid flat colors
+```
+
+### Rampa de acesso à ponte (aterro ferroviário)
+```
+low poly railway embankment ramp, dirt and gravel slope,
+railway track on top, ascending to bridge level,
+WWII era European railway, game asset, solid flat colors
+```
