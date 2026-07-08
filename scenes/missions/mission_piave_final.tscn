@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" path="res://scenes/environment/mountain.tscn" id="14_mountain"]
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
+[ext_resource type="Script" uid="uid://x28khd5h7smo" path="res://scripts/skybox_cylinder.gd" id="17_k67gn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_58114"]
 size = Vector3(1.6152344, 0.8564453, 0.23883057)
@@ -197,3 +198,6 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 9.271315, -130)
 transform = Transform3D(17.185926, 0, 0, 0, 22.653326, -17.347435, 0, 3.333769, 117.8777, 0, -4.008545, -82.04383)
 mesh = SubResource("BoxMesh_58114")
 material = SubResource("StandardMaterial3D_adubl")
+
+[node name="Skybox" type="Node3D" parent="." unique_id=1264270831]
+script = ExtResource("17_k67gn")
