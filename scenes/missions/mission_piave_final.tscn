@@ -212,7 +212,7 @@ y_offset = 2000.0
 [node name="LayerHills" type="Node3D" parent="." unique_id=1410529916]
 script = ExtResource("18_d5jcf")
 height = 120.0
-y_offset = -40.0
+y_offset = 40.0
 
 [node name="SkySphere" type="Node3D" parent="." unique_id=1138652391]
 visible = false
