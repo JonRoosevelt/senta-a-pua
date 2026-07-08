@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
 [ext_resource type="Script" uid="uid://x28khd5h7smo" path="res://scripts/skybox_cylinder.gd" id="17_k67gn"]
+[ext_resource type="Script" uid="uid://c5qcbfqfcd1uq" path="res://scripts/alps.gd" id="19_nd26m"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_630il"]
 panorama = ExtResource("2_k67gn")
@@ -26,7 +27,6 @@ panorama = ExtResource("2_k67gn")
 sky_material = SubResource("PanoramaSkyMaterial_630il")
 
 [sub_resource type="Environment" id="Environment_nd26m"]
-background_mode = 2
 sky = SubResource("Sky_45efc")
 ambient_light_source = 3
 
@@ -203,5 +203,9 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 9.271315, -130)
 transform = Transform3D(17.185926, 0, 0, 0, 22.653326, -17.347435, 0, 3.333769, 117.8777, 0, -4.008545, -82.04383)
 mesh = SubResource("BoxMesh_58114")
 
+[node name="Alps" type="Node3D" parent="." unique_id=844498702]
+script = ExtResource("19_nd26m")
+
 [node name="SkySphere" type="Node3D" parent="." unique_id=1138652391]
+visible = false
 script = ExtResource("17_k67gn")

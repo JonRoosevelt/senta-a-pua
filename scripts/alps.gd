@@ -1,9 +1,8 @@
-# skybox_cylinder.gd - 360 panorama sphere
+# skybox_cylinder.gd - 360 panorama sphere (the approach that works)
 extends Node3D
 
-@export var texture_path: String = "res://assets/terrain/po_valley_bg_360_upscaled.png"
+@export var texture_path: String = "res://assets/terrain/layer_alps.png"
 @export var radius: float = 800.0
-@export var y_offset: float = 0.0
 
 func _ready() -> void:
 	if get_child_count() > 0:
@@ -25,5 +24,5 @@ func _ready() -> void:
 	
 	var mi = MeshInstance3D.new()
 	mi.mesh = mesh
-	mi.position = Vector3(0, y_offset, 0)
+	mi.position = Vector3(0, 0, 0)
 	add_child(mi)
