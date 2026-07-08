@@ -5,6 +5,7 @@ extends Node3D
 @export var radius: float = 600.0
 @export var height: float = 250.0
 @export var y_offset: float = 20.0
+@export var flip_texture: bool = true
 
 func _ready() -> void:
 	if get_child_count() > 0:
@@ -16,6 +17,10 @@ func _ready() -> void:
 	
 	if ResourceLoader.exists(texture_path):
 		mat.albedo_texture = load(texture_path)
+	
+	# Fix inverted UV on CylinderMesh
+	if flip_texture:
+		mat.uv1_scale = Vector3(1, -1, 1)
 	
 	var mesh = CylinderMesh.new()
 	mesh.top_radius = radius

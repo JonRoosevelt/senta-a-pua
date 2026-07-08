@@ -205,13 +205,14 @@ transform = Transform3D(17.185926, 0, 0, 0, 22.653326, -17.347435, 0, 3.333769, 
 mesh = SubResource("BoxMesh_58114")
 
 [node name="Alps" type="Node3D" parent="." unique_id=844498702]
-visible = false
 script = ExtResource("19_nd26m")
 radius = 2000.0
 y_offset = 2000.0
 
 [node name="LayerHills" type="Node3D" parent="." unique_id=1410529916]
 script = ExtResource("18_d5jcf")
+height = 120.0
+y_offset = -40.0
 
 [node name="SkySphere" type="Node3D" parent="." unique_id=1138652391]
 visible = false
