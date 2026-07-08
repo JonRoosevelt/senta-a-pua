@@ -1,7 +1,7 @@
-# skybox_cylinder.gd - 360 panorama sphere (the approach that works)
+# skybox_cylinder.gd - 360 panorama sphere
 extends Node3D
 
-@export var texture_path: String = "res://assets/terrain/layer_alps.png"
+@export var texture_path: String = "res://assets/terrain/layer_hills.png"
 @export var radius: float = 800.0
 @export var y_offset: float = 0.0
 
@@ -18,8 +18,8 @@ func _ready() -> void:
 	
 	var mesh = SphereMesh.new()
 	mesh.radius = radius
-	mesh.height = radius * 2
-	mesh.radial_segments = 64
+	mesh.height = radius/3
+	mesh.radial_segments = 32
 	mesh.rings = 32
 	mesh.material = mat
 	
