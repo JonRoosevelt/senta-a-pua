@@ -161,3 +161,22 @@ low poly railway embankment ramp, dirt and gravel slope,
 railway track on top, ascending to bridge level,
 WWII era European railway, game asset, solid flat colors
 ```
+
+---
+
+## 🖼️ Panorama/Skybox para Background (NÃO é Meshy - usar DALL-E/Stable Diffusion)
+
+### Panorama do Vale do Pó (360° cylindrical)
+```
+360 degree panoramic landscape of Po Valley Italy in autumn,
+distant snow-capped Alps mountains spanning the entire horizon,
+patchwork of green and golden agricultural fields below,
+winding silver-blue rivers crossing the valley,
+small Italian villages with terracotta roofs and church towers,
+warm golden hour sunset lighting, soft haze on the horizon,
+painted stylized illustration, flat colors, clean lines,
+seamless horizontal tiling, 4096x1024 resolution,
+no text, no watermark
+```
+
+Aplicar como albedo_texture num CylinderMesh de raio 800m ao redor do mapa.
