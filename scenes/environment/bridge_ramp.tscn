@@ -5,11 +5,11 @@ albedo_color = Color(0.35, 0.32, 0.28, 1)
 roughness = 0.85
 
 [sub_resource type="BoxMesh" id="ramp_mesh"]
-size = Vector3(8, 16, 60)
+size = Vector3(8, 18, 120)
 material = SubResource("ramp_mat")
 
 [node name="BridgeRamp" type="Node3D"]
 
 [node name="RampVisual" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.970296, -0.241922, 0, 0.241922, 0.970296, 0, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 0.986286, -0.165048, 0, 0.165048, 0.986286, 0, 7, -30)
 mesh = SubResource("ramp_mesh")
