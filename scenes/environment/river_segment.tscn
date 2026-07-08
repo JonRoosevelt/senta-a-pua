@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="StandardMaterial3D" id="river_mat"]
+albedo_color = Color(0.25, 0.45, 0.38, 1)
+roughness = 0.25
+metallic = 0.3
+
+[sub_resource type="BoxMesh" id="river_seg"]
+size = Vector3(42, 0.15, 35)
+material = SubResource("river_mat")
+
+[node name="RiverSegment" type="MeshInstance3D"]
+mesh = SubResource("river_seg")

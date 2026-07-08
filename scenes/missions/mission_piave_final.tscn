@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_flak"]
@@ -12,7 +12,10 @@
 [ext_resource type="PackedScene" path="res://assets/meshy/cypress.glb" id="10_cypress"]
 [ext_resource type="PackedScene" path="res://assets/meshy/bunker.glb" id="11_bunker"]
 [ext_resource type="PackedScene" path="res://assets/meshy/ammo_depot.glb" id="12_ammo"]
-[ext_resource type="Script" path="res://scripts/mission_piave_final.gd" id="13_script"]
+[ext_resource type="PackedScene" path="res://scenes/environment/ground.tscn" id="13_ground"]
+[ext_resource type="PackedScene" path="res://scenes/environment/mountain.tscn" id="14_mountain"]
+[ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
+[ext_resource type="Script" path="res://scripts/mission_piave_final.gd" id="16_script"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_player"]
 size = Vector3(9, 2.5, 7)
@@ -24,40 +27,70 @@ size = Vector3(6, 6, 6)
 size = Vector3(8, 2, 6)
 
 [node name="MissionPiave" type="Node3D"]
-script = ExtResource("13_script")
-
-[node name="Player" parent="." instance=ExtResource("1_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+script = ExtResource("16_script")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 20, 0)
 light_energy = 3.0
 light_color = Color(1, 0.9, 0.72, 1)
 shadow_enabled = true
 
-; === ENEMIES (editable in editor) ===
-[node name="EnemyTowers" type="Node3D" parent="."]
+; === PLAYER ===
+[node name="Player" parent="." instance=ExtResource("1_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
-[node name="Flak1" parent="EnemyTowers" instance=ExtResource("2_flak")]
+; === TERRAIN ===
+[node name="Terrain" type="Node3D" parent="."]
+
+[node name="Ground" parent="Terrain" instance=ExtResource("13_ground")]
+
+[node name="Mountain1" parent="Terrain" instance=ExtResource("14_mountain")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -400)
+
+[node name="Mountain2" parent="Terrain" instance=ExtResource("14_mountain")]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, -450)
+
+[node name="Mountain3" parent="Terrain" instance=ExtResource("14_mountain")]
+transform = Transform3D(0.9, 0, 0, 0, 0.8, 0, 0, 0, 0.9, 200, 0, -420)
+
+; === RIVER ===
+[node name="River" type="Node3D" parent="."]
+
+[node name="RivSeg1" parent="River" instance=ExtResource("15_river")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400, 0.08, -180)
+
+[node name="RivSeg2" parent="River" instance=ExtResource("15_river")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 0.08, -180)
+
+[node name="RivSeg3" parent="River" instance=ExtResource("15_river")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -180)
+
+[node name="RivSeg4" parent="River" instance=ExtResource("15_river")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, 0.08, -180)
+
+[node name="RivSeg5" parent="River" instance=ExtResource("15_river")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 400, 0.08, -180)
+
+; === ENEMIES ===
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Flak1" parent="Enemies" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 2, -130)
 
-[node name="Flak2" parent="EnemyTowers" instance=ExtResource("2_flak")]
+[node name="Flak2" parent="Enemies" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 2, -130)
 
-[node name="Flak3" parent="EnemyTowers" instance=ExtResource("2_flak")]
+[node name="Flak3" parent="Enemies" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -220)
 
-[node name="EnemyFighters" type="Node3D" parent="."]
-
-[node name="Bf109_1" parent="EnemyFighters" instance=ExtResource("3_bf109")]
+[node name="Bf109_1" parent="Enemies" instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 30, -250)
 
-[node name="Bf109_2" parent="EnemyFighters" instance=ExtResource("3_bf109")]
+[node name="Bf109_2" parent="Enemies" instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 28, -300)
 
-; === SCENERY (NOW EDITABLE IN EDITOR!) ===
+; === SCENERY ===
 [node name="Scenery" type="Node3D" parent="."]
 
 [node name="Bridge" parent="Scenery" instance=ExtResource("4_bridge")]

@@ -1,10 +1,10 @@
-# mission_piave_final.gd - Scene setup only (assets are in .tscn)
+# mission_piave_final.gd - Environment setup only. Assets are in .tscn
 extends Node3D
 
 func _ready() -> void:
 	GameManager.start_mission()
 	_setup_environment()
-	print("[Piave Final] Ready. All assets in scene editor.")
+	print("[Piave] Ready. Edit assets in Scene panel.")
 
 func _setup_environment() -> void:
 	var env = Environment.new()
