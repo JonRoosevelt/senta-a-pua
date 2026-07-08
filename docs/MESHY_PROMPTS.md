@@ -148,16 +148,9 @@ steel rails, gravel ballast base, modular tileable,
 standard gauge, game asset, solid flat colors
 ```
 
-### Trilho curva esquerda
+### Trilho curvo (girar 180° = inverter direção)
 ```
-low poly curved railway track turning left, wooden sleepers,
-steel rails, gravel ballast base, 45 degree curve,
-standard gauge, game asset, solid flat colors
-```
-
-### Trilho curva direita
-```
-low poly curved railway track turning right, wooden sleepers,
+low poly curved railway track, wooden sleepers,
 steel rails, gravel ballast base, 45 degree curve,
 standard gauge, game asset, solid flat colors
 ```

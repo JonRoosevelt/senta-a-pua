@@ -24,7 +24,17 @@ size = Vector3(1.6152344, 0.8564453, 0.23883057)
 size = Vector3(1.699585, 0.3071289, 0.42523193)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_adubl"]
-size = Vector3(1.5871582, 0.6972656, 0.60668945)
+size = Vector3(1.5871582, 0.6972656, 0.001)
+
+[sub_resource type="BoxMesh" id="BoxMesh_58114"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_t6jqj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adubl"]
+albedo_color = Color(0.46615148, 0.23906463, 9.62615e-08, 1)
+roughness = 0.49
+roughness_texture = SubResource("ImageTexture_t6jqj")
+roughness_texture_channel = 3
 
 [node name="MissionPiave" type="Node3D" unique_id=723406387]
 script = ExtResource("16_script")
@@ -96,16 +106,16 @@ transform = Transform3D(0.99988043, 0, -5.820766e-11, 0, 0.99991333, 0, -2.18278
 shape = SubResource("BoxShape3D_v0rwa")
 
 [node name="Boxcar1" parent="Scenery" unique_id=1704428022 instance=ExtResource("6_boxcar")]
-transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -123.447235)
+transform = Transform3D(-0.037375808, 0, 14.999951, 2.9359267, 14.709869, 0.0073155323, -14.709823, 2.935936, -0.036652885, -1.9331174, 21.912424, -127.86473)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar1" unique_id=30073096]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Scenery/Boxcar1/StaticBody3D" unique_id=125928479]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.011596702)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059919357, 0.15136719, 0.31444144)
 shape = SubResource("BoxShape3D_adubl")
 
 [node name="Boxcar2" parent="Scenery" unique_id=1877943706 instance=ExtResource("6_boxcar")]
-transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -95.50233)
+transform = Transform3D(-0.037375808, 0, 14.999951, 2.171023, 14.842055, 0.0054095997, -14.842009, 2.1710296, -0.036982257, -1.9331174, 17.149374, -100.50233)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar2" unique_id=1641217808]
 
@@ -114,7 +124,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.
 shape = SubResource("BoxShape3D_adubl")
 
 [node name="Boxcar3" parent="Scenery" unique_id=1199762621 instance=ExtResource("6_boxcar")]
-transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -66.81194)
+transform = Transform3D(-0.037375808, 0, 14.999951, 2.145155, 14.845816, 0.005345144, -14.845769, 2.1451619, -0.036991626, -1.9331174, 12.511847, -72.81194)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar3" unique_id=1669031757]
 
@@ -123,7 +133,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.
 shape = SubResource("BoxShape3D_adubl")
 
 [node name="Boxcar4" parent="Scenery" unique_id=600322103 instance=ExtResource("6_boxcar")]
-transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -36.811943)
+transform = Transform3D(-0.037375808, 0, 14.999951, 2.0297437, 14.862035, 0.0050575705, -14.861988, 2.02975, -0.03703204, -1.9331174, 8.511847, -45.811943)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar4" unique_id=1251497066]
 
@@ -132,7 +142,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0059890747, 0.15136719, 0.
 shape = SubResource("BoxShape3D_adubl")
 
 [node name="Boxcar5" parent="Scenery" unique_id=859437722 instance=ExtResource("6_boxcar")]
-transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 25.511847, -6.811943)
+transform = Transform3D(-0.037375808, 0, 14.999951, 0, 14.999999, 0, -14.999951, 0, -0.037375808, -1.9331174, 6.5118465, -18.811943)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenery/Boxcar5" unique_id=1990544641]
 
@@ -142,24 +152,31 @@ shape = SubResource("BoxShape3D_adubl")
 
 [node name="Church" parent="Scenery" unique_id=1383382718 instance=ExtResource("8_church")]
 transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -55.350407, 17.640226, -99.38302)
+visible = false
 
 [node name="Farmhouse1" parent="Scenery" unique_id=2141205650 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -90, 9.214699, -85)
+visible = false
 
 [node name="Farmhouse2" parent="Scenery" unique_id=1651667647 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -85, 9.32205, -115)
+visible = false
 
 [node name="Farmhouse3" parent="Scenery" unique_id=1102822655 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -40, 9.160069, -80)
+visible = false
 
 [node name="Farmhouse4" parent="Scenery" unique_id=624284677 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -35, 9.243459, -120)
+visible = false
 
 [node name="Farmhouse5" parent="Scenery" unique_id=149054320 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 177.0803, 9.243459, -86.149574)
+visible = false
 
 [node name="Village1" parent="Scenery" unique_id=203574989 instance=ExtResource("9_vbuilding")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 140, 13.784016, -80)
+visible = false
 
 [node name="Bunker" parent="Scenery" unique_id=868641353 instance=ExtResource("11_bunker")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 79.58526, 8.432358, -238.86209)
@@ -175,3 +192,8 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 9.684956, -240)
 
 [node name="Cypress3" parent="Scenery" unique_id=1690284098 instance=ExtResource("10_cypress")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 9.271315, -130)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Scenery" unique_id=1946003957]
+transform = Transform3D(17.185926, 0, 0, 0, 22.653326, -17.347435, 0, 3.333769, 117.8777, 0, -4.008545, -82.04383)
+mesh = SubResource("BoxMesh_58114")
+material = SubResource("StandardMaterial3D_adubl")
