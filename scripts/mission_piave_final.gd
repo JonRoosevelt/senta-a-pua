@@ -1,4 +1,4 @@
-# mission_piave_final.gd - Environment with PanoramaSky background
+# mission_piave_final.gd - Clean procedural sky + optional skysphere
 extends Node3D
 
 func _ready() -> void:
@@ -19,16 +19,14 @@ func _setup_environment() -> void:
 	env.fog_density = 0.003
 	env.fog_light_color = Color(0.85, 0.72, 0.52)
 	
-	# PanoramaSky wraps the image around a sphere - 360° immersive background
+	# Procedural sky
 	var sky = Sky.new()
-	var panorama = PanoramaSkyMaterial.new()
-	var img = load("res://assets/terrain/po_valley_pano.jpg")
-	if img:
-		panorama.panorama = img
-		print("[Sky] Panorama loaded successfully")
-	else:
-		print("[Sky] ERROR: Could not load panorama image")
-	sky.sky_material = panorama
+	var sky_mat = ProceduralSkyMaterial.new()
+	sky_mat.sky_top_color = Color(0.42, 0.55, 0.72)
+	sky_mat.sky_horizon_color = Color(0.85, 0.72, 0.48)
+	sky_mat.ground_horizon_color = Color(0.48, 0.55, 0.32)
+	sky_mat.ground_bottom_color = Color(0.35, 0.42, 0.25)
+	sky.sky_material = sky_mat
 	env.sky = sky
 	
 	$WorldEnvironment.environment = env
