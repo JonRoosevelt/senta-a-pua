@@ -180,3 +180,37 @@ no text, no watermark
 ```
 
 Aplicar como albedo_texture num CylinderMesh de raio 800m ao redor do mapa.
+
+---
+
+## 🖼️ Camadas de Background (Parallax Horizonte)
+
+Gerar cada uma separadamente como faixa horizontal larga.
+Resolução sugerida: 2048×256 ou 4096×512 cada.
+Fundo transparente ou cor sólida.
+
+### Camada 1: Alpes com neve (mais distante)
+```
+horizontal strip landscape, distant snow-capped Alps mountains,
+jagged peaks, soft blue-white haze, morning light,
+minimal detail, atmospheric perspective, 4096x512,
+no ground, sky above mountains only, painted style
+```
+
+### Camada 2: Colinas e vilarejos (meio)
+```
+horizontal strip landscape, rolling green hills,
+small Italian villages with terracotta roofs scattered,
+cypress trees, light haze, warm autumn colors,
+4096x256, no sky, no mountains, middle ground only,
+painted illustration style
+```
+
+### Camada 3: Campos agrícolas (mais próximo)
+```
+horizontal strip landscape, patchwork of green and golden
+agricultural fields, dirt roads, isolated farmhouses,
+hedgerows, trees, warm golden light, 4096x512,
+foreground only, no sky, no mountains,
+painted illustration style
+```
