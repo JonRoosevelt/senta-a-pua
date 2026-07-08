@@ -1,31 +1,112 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_enemy"]
-[ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_enemy_fighter"]
-[ext_resource type="Script" path="res://scripts/mission_piave_final.gd" id="4_script"]
+[ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_flak"]
+[ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_bf109"]
+[ext_resource type="PackedScene" path="res://assets/meshy/railway_bridge.glb" id="4_bridge"]
+[ext_resource type="PackedScene" path="res://assets/meshy/steam_train.glb" id="5_train"]
+[ext_resource type="PackedScene" path="res://assets/meshy/boxcar.glb" id="6_boxcar"]
+[ext_resource type="PackedScene" path="res://assets/meshy/farmhouse.glb" id="7_farmhouse"]
+[ext_resource type="PackedScene" path="res://assets/meshy/church.glb" id="8_church"]
+[ext_resource type="PackedScene" path="res://assets/meshy/village_building.glb" id="9_vbuilding"]
+[ext_resource type="PackedScene" path="res://assets/meshy/cypress.glb" id="10_cypress"]
+[ext_resource type="PackedScene" path="res://assets/meshy/bunker.glb" id="11_bunker"]
+[ext_resource type="PackedScene" path="res://assets/meshy/ammo_depot.glb" id="12_ammo"]
+[ext_resource type="Script" path="res://scripts/mission_piave_final.gd" id="13_script"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_player"]
+size = Vector3(9, 2.5, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flak"]
+size = Vector3(6, 6, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fighter"]
+size = Vector3(8, 2, 6)
 
 [node name="MissionPiave" type="Node3D"]
-script = ExtResource("4_script")
+script = ExtResource("13_script")
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 20, 0)
+light_energy = 3.0
+light_color = Color(1, 0.9, 0.72, 1)
+shadow_enabled = true
+
+; === ENEMIES (editable in editor) ===
 [node name="EnemyTowers" type="Node3D" parent="."]
 
-[node name="Tower1" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+[node name="Flak1" parent="EnemyTowers" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 2, -130)
 
-[node name="Tower2" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+[node name="Flak2" parent="EnemyTowers" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 2, -130)
 
-[node name="Tower3" parent="EnemyTowers" instance=ExtResource("2_enemy")]
+[node name="Flak3" parent="EnemyTowers" instance=ExtResource("2_flak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -220)
 
 [node name="EnemyFighters" type="Node3D" parent="."]
 
-[node name="Fighter1" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+[node name="Bf109_1" parent="EnemyFighters" instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 30, -250)
 
-[node name="Fighter2" parent="EnemyFighters" instance=ExtResource("3_enemy_fighter")]
+[node name="Bf109_2" parent="EnemyFighters" instance=ExtResource("3_bf109")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 28, -300)
+
+; === SCENERY (NOW EDITABLE IN EDITOR!) ===
+[node name="Scenery" type="Node3D" parent="."]
+
+[node name="Bridge" parent="Scenery" instance=ExtResource("4_bridge")]
+transform = Transform3D(25, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, -180)
+
+[node name="SteamTrain" parent="Scenery" instance=ExtResource("5_train")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -220)
+
+[node name="Boxcar1" parent="Scenery" instance=ExtResource("6_boxcar")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -245)
+
+[node name="Boxcar2" parent="Scenery" instance=ExtResource("6_boxcar")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -263)
+
+[node name="Boxcar3" parent="Scenery" instance=ExtResource("6_boxcar")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 5, -281)
+
+[node name="Church" parent="Scenery" instance=ExtResource("8_church")]
+transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -60, 0, -100)
+
+[node name="Farmhouse1" parent="Scenery" instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -90, 0, -85)
+
+[node name="Farmhouse2" parent="Scenery" instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -85, 0, -115)
+
+[node name="Farmhouse3" parent="Scenery" instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -40, 0, -80)
+
+[node name="Farmhouse4" parent="Scenery" instance=ExtResource("7_farmhouse")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -35, 0, -120)
+
+[node name="Village1" parent="Scenery" instance=ExtResource("9_vbuilding")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 140, 0, -80)
+
+[node name="Village2" parent="Scenery" instance=ExtResource("9_vbuilding")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 160, 0, -95)
+
+[node name="Bunker" parent="Scenery" instance=ExtResource("11_bunker")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 60, 0, -210)
+
+[node name="AmmoDepot" parent="Scenery" instance=ExtResource("12_ammo")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -200, 0, -280)
+
+[node name="Cypress1" parent="Scenery" instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -150, 0, -230)
+
+[node name="Cypress2" parent="Scenery" instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 50, 0, -240)
+
+[node name="Cypress3" parent="Scenery" instance=ExtResource("10_cypress")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 0, -130)
