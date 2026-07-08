@@ -1,10 +1,11 @@
-# skybox_cylinder.gd - Simple curved backdrop (single mesh, no seams)
+# skybox_cylinder.gd - Simple horizon backdrop
 extends Node3D
 
-@export var texture_path: String = "res://assets/terrain/po_valley_bg_360.png"
-@export var radius: float = 800.0
-@export var height: float = 500.0
-@export var arc_degrees: float = 180.0
+@export var texture_path: String = "res://assets/terrain/po_valley_bg.png"
+@export var distance: float = 600.0
+@export var width: float = 2400.0
+@export var height: float = 400.0
+@export var y_offset: float = 50.0
 
 func _ready() -> void:
 	var mat = StandardMaterial3D.new()
@@ -13,22 +14,17 @@ func _ready() -> void:
 	
 	if ResourceLoader.exists(texture_path):
 		mat.albedo_texture = load(texture_path)
-		print("[Skybox] Loaded: ", texture_path)
-	else:
-		mat.albedo_color = Color(0.55, 0.65, 0.80)
 	
-	# Create a CylinderMesh (seamless curved surface)
-	var mesh = CylinderMesh.new()
-	mesh.top_radius = radius
-	mesh.bottom_radius = radius
-	mesh.height = height
-	mesh.radial_segments = 64  # Smooth curve
+	# Single large plane across the horizon
+	var mesh = PlaneMesh.new()
+	mesh.size = Vector2(width, height)
 	mesh.material = mat
+	mesh.orientation = PlaneMesh.FACE_Z
 	
 	var mi = MeshInstance3D.new()
-	mi.name = "SkyboxMesh"
+	mi.name = "HorizonBackdrop"
 	mi.mesh = mesh
-	mi.position = Vector3(0, height / 2.0, 0)
+	mi.position = Vector3(0, y_offset + height / 2.0, -distance)
 	add_child(mi)
 	
-	print("[Skybox] Cylinder radius=", radius, " height=", height)
+	print("[Skybox] Horizon plane: ", width, "x", height, " at Z=", -distance)
