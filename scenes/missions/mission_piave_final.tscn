@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_flak"]
+[ext_resource type="Texture2D" uid="uid://cqf0f2815h807" path="res://assets/terrain/po_valley_pano.jpg" id="2_k67gn"]
 [ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_bf109"]
 [ext_resource type="PackedScene" uid="uid://bfg88tpujn32w" path="res://assets/meshy/railway_bridge.glb" id="4_bridge"]
 [ext_resource type="PackedScene" uid="uid://d4geqq1n6yoda" path="res://assets/meshy/steam_train.glb" id="5_train"]
@@ -16,10 +17,16 @@
 [ext_resource type="PackedScene" path="res://scenes/environment/mountain.tscn" id="14_mountain"]
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
+[ext_resource type="Script" uid="uid://x28khd5h7smo" path="res://scripts/skybox_cylinder.gd" id="17_k67gn"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_630il"]
+panorama = ExtResource("2_k67gn")
 
 [sub_resource type="Sky" id="Sky_45efc"]
+sky_material = SubResource("PanoramaSkyMaterial_630il")
 
 [sub_resource type="Environment" id="Environment_nd26m"]
+background_mode = 2
 sky = SubResource("Sky_45efc")
 ambient_light_source = 3
 
@@ -195,3 +202,6 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -100, 9.271315, -130)
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Scenery" unique_id=1946003957]
 transform = Transform3D(17.185926, 0, 0, 0, 22.653326, -17.347435, 0, 3.333769, 117.8777, 0, -4.008545, -82.04383)
 mesh = SubResource("BoxMesh_58114")
+
+[node name="SkySphere" type="Node3D" parent="." unique_id=1138652391]
+script = ExtResource("17_k67gn")

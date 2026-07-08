@@ -16,8 +16,11 @@ func _setup_environment() -> void:
 	env.glow_intensity = 0.4
 	env.fog_enabled = true
 	env.fog_mode = 1
-	env.fog_density = 0.003
-	env.fog_light_color = Color(0.85, 0.72, 0.52)
+	env.fog_density = 0.006
+	env.fog_light_color = Color(0.88, 0.78, 0.58)
+	env.fog_aerial_perspective = 0.8
+	env.fog_height = 60.0
+	env.fog_height_density = 0.005
 	
 	# Procedural sky
 	var sky = Sky.new()
