@@ -3,9 +3,9 @@ extends Node3D
 
 # Each layer: texture, distance (Z), height, y_offset
 @export var layers: Array[Dictionary] = [
-	{"texture": "res://assets/terrain/layer_alps.png", "distance": 800, "height": 300, "y": 100},
-	{"texture": "res://assets/terrain/layer_hills.png", "distance": 500, "height": 200, "y": 40},
-	{"texture": "res://assets/terrain/layer_fields.png", "distance": 250, "height": 150, "y": 10},
+	{"texture": "res://assets/terrain/layer_alps.png", "distance": 800, "height": 250, "y": 120},
+	{"texture": "res://assets/terrain/layer_hills.png", "distance": 500, "height": 180, "y": 50},
+	{"texture": "res://assets/terrain/layer_fields.png", "distance": 250, "height": 120, "y": 10},
 ]
 
 func _ready() -> void:
@@ -29,7 +29,7 @@ func _create_layer(tex_path: String, z_dist: float, h: float, y_off: float) -> v
 	
 	# Wide plane to span the view
 	var mesh = PlaneMesh.new()
-	mesh.size = Vector2(3000, h)
+	mesh.size = Vector2(2500, h)
 	mesh.material = mat
 	mesh.orientation = PlaneMesh.FACE_Z
 	
