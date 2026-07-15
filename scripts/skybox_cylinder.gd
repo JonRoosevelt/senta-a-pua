@@ -1,18 +1,19 @@
 # sky_layer.gd - Cilindro ou esfera para camada de background
 extends Node3D
 
-@export var texture_path: String = ""
+@export var texture_path: String = "res://assets/terrain/layer_alps.png"
 @export var radius: float = 500.0
 @export var height: float = 200.0
 @export var y_offset: float = 0.0
 @export var mode: String = "cylinder"  # "cylinder" or "sphere"
+@export var shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
 func _ready() -> void:
 	if get_child_count() > 0:
 		return
 	
 	var mat = StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.shading_mode = shading_mode
 	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	
 	if texture_path != "" and ResourceLoader.exists(texture_path):

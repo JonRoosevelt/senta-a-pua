@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://assets/meshy/flak88_enemy.tscn" id="2_flak"]
-[ext_resource type="Texture2D" uid="uid://cqf0f2815h807" path="res://assets/terrain/po_valley_pano.jpg" id="2_k67gn"]
 [ext_resource type="PackedScene" path="res://assets/meshy/bf109_enemy.tscn" id="3_bf109"]
 [ext_resource type="PackedScene" uid="uid://bfg88tpujn32w" path="res://assets/meshy/railway_bridge.glb" id="4_bridge"]
 [ext_resource type="PackedScene" uid="uid://d4geqq1n6yoda" path="res://assets/meshy/steam_train.glb" id="5_train"]
@@ -14,15 +13,17 @@
 [ext_resource type="PackedScene" uid="uid://k3fur8sq12c2" path="res://assets/meshy/bunker.glb" id="11_bunker"]
 [ext_resource type="PackedScene" uid="uid://d3pkc6plx7cay" path="res://assets/meshy/ammo_depot.glb" id="12_ammo"]
 [ext_resource type="PackedScene" path="res://scenes/environment/ground.tscn" id="13_ground"]
-[ext_resource type="PackedScene" path="res://scenes/environment/mountain.tscn" id="14_mountain"]
 [ext_resource type="PackedScene" path="res://scenes/environment/river_segment.tscn" id="15_river"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave_final.gd" id="16_script"]
 [ext_resource type="Script" uid="uid://x28khd5h7smo" path="res://scripts/skybox_cylinder.gd" id="17_k67gn"]
 [ext_resource type="Script" uid="uid://8db1kmclsvd8" path="res://scripts/hills.gd" id="18_d5jcf"]
 [ext_resource type="Script" uid="uid://c5qcbfqfcd1uq" path="res://scripts/alps.gd" id="19_nd26m"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_630il"]
+load_path = "res://.godot/imported/po_valley_pano.jpg-0fb92b41fd2faf83fa1af0ec67369dc7.s3tc.ctex"
+
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_630il"]
-panorama = ExtResource("2_k67gn")
+panorama = SubResource("CompressedTexture2D_630il")
 
 [sub_resource type="Sky" id="Sky_45efc"]
 sky_material = SubResource("PanoramaSkyMaterial_630il")
@@ -60,15 +61,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 [node name="Terrain" type="Node3D" parent="." unique_id=376116056]
 
 [node name="Ground" parent="Terrain" unique_id=1784689828 instance=ExtResource("13_ground")]
-
-[node name="Mountain1" parent="Terrain" unique_id=634019484 instance=ExtResource("14_mountain")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250, 0, -400)
-
-[node name="Mountain2" parent="Terrain" unique_id=1139090616 instance=ExtResource("14_mountain")]
-transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0, 0, -450)
-
-[node name="Mountain3" parent="Terrain" unique_id=2060561936 instance=ExtResource("14_mountain")]
-transform = Transform3D(0.9, 0, 0, 0, 0.8, 0, 0, 0, 0.9, 200, 0, -420)
 
 [node name="River" type="Node3D" parent="." unique_id=1921953790]
 
@@ -159,31 +151,24 @@ shape = SubResource("BoxShape3D_adubl")
 
 [node name="Church" parent="Scenery" unique_id=1383382718 instance=ExtResource("8_church")]
 transform = Transform3D(18, 0, 0, 0, 18, 0, 0, 0, 18, -55.350407, 17.640226, -99.38302)
-visible = false
 
 [node name="Farmhouse1" parent="Scenery" unique_id=2141205650 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -90, 9.214699, -85)
-visible = false
 
 [node name="Farmhouse2" parent="Scenery" unique_id=1651667647 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -85, 9.32205, -115)
-visible = false
 
 [node name="Farmhouse3" parent="Scenery" unique_id=1102822655 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -40, 9.160069, -80)
-visible = false
 
 [node name="Farmhouse4" parent="Scenery" unique_id=624284677 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, -35, 9.243459, -120)
-visible = false
 
 [node name="Farmhouse5" parent="Scenery" unique_id=149054320 instance=ExtResource("7_farmhouse")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 177.0803, 9.243459, -86.149574)
-visible = false
 
 [node name="Village1" parent="Scenery" unique_id=203574989 instance=ExtResource("9_vbuilding")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 140, 13.784016, -80)
-visible = false
 
 [node name="Bunker" parent="Scenery" unique_id=868641353 instance=ExtResource("11_bunker")]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 79.58526, 8.432358, -238.86209)
@@ -210,11 +195,13 @@ radius = 2000.0
 y_offset = 2000.0
 
 [node name="LayerHills" type="Node3D" parent="." unique_id=1410529916]
+visible = false
 script = ExtResource("18_d5jcf")
-height = 120.0
 y_offset = 40.0
 
 [node name="SkySphere" type="Node3D" parent="." unique_id=1138652391]
 visible = false
 script = ExtResource("17_k67gn")
-y_offset = 100.0
+texture_path = "res://assets/terrain/layer_hills.png"
+radius = 2000.0
+height = 100.0
