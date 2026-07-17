@@ -7,6 +7,11 @@ extends CharacterBody3D
 @export var invert_pitch: bool = true
 @export var convergence_distance: float = 150.0
 @export var fire_rate: float = 0.08
+
+# ── Aim Assist (Soft Lock) ───────────────────────────────────
+@export var aim_assist_degrees: float = 14.0    # Cone angle for lock-on
+@export var aim_assist_max_dist: float = 220.0  # Max lock distance
+
 @export var min_speed: float = 20.0
 @export var max_speed: float = 65.0
 @export var acceleration_rate: float = 18.0
@@ -22,6 +27,7 @@ var wing_offset_z: float = 0.0  # wing root position
 var health: float = 100.0
 var is_dead: bool = false
 var fire_cooldown: float = 0.0
+var locked_target: Node3D = null
 var shake_amount: float = 0.0
 var shake_decay: float = 5.0
 var camera_base_transform: Transform3D
@@ -78,6 +84,8 @@ func _physics_process(delta: float) -> void:
 		fire_cooldown -= delta
 	
 	# Shooting
+	_update_aim_assist(delta)
+	
 	if Input.is_action_pressed("ui_accept") and fire_cooldown <= 0:
 		shoot()
 		fire_cooldown = fire_rate
@@ -99,7 +107,12 @@ func _physics_process(delta: float) -> void:
 
 func shoot() -> void:
 	var forward_dir = -global_transform.basis.z
-	var convergence_point = global_position + forward_dir * convergence_distance
+	var convergence_point: Vector3
+	
+	if locked_target and is_instance_valid(locked_target):
+		convergence_point = locked_target.global_position
+	else:
+		convergence_point = global_position + forward_dir * convergence_distance
 	
 	# Left wing tip position (calculated, no Marker3D needed)
 	var left_pos = global_position + global_transform.basis * Vector3(-wing_span, 0, wing_offset_z)
@@ -121,6 +134,23 @@ func shoot() -> void:
 	br.direction = dir_right
 	
 	shake_amount = clamp(shake_amount + 0.05, 0.0, 0.15)
+
+
+func _update_aim_assist(_delta: float) -> void:
+	locked_target = null
+	var best_angle = deg_to_rad(aim_assist_degrees)
+	var forward = -global_transform.basis.z
+
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if not is_instance_valid(enemy):
+			continue
+		var to_enemy = (enemy.global_position - global_position).normalized()
+		var angle = forward.angle_to(to_enemy)
+		var dist = global_position.distance_to(enemy.global_position)
+		if angle < best_angle and dist < aim_assist_max_dist:
+			best_angle = angle
+			locked_target = enemy
+
 
 func take_damage(amount: float) -> void:
 	if is_dead:

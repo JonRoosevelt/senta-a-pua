@@ -11,6 +11,7 @@ var player: Node3D = null
 var fire_timer: float = 0.0
 
 func _ready() -> void:
+	add_to_group("enemy")
 	# Procura pelo jogador na cena principal
 	player = get_node_or_null("/root/Main/Player")
 	if not player:

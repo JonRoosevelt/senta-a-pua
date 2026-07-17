@@ -12,6 +12,7 @@ var player: Node3D = null
 var fire_timer: float = 0.0
 
 func _ready() -> void:
+	add_to_group("enemy")
 	player = get_tree().current_scene.get_node_or_null("Player")
 	
 	# Fix Meshy model orientation and scale

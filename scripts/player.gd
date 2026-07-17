@@ -8,6 +8,10 @@ extends CharacterBody3D
 @export var convergence_distance: float = 150.0  # Distância de convergência das balas (metros)
 @export var fire_rate: float = 0.08  # Tempo entre disparos ao segurar (segundos)
 
+# ── Aim Assist (Soft Lock) ───────────────────────────────────
+@export var aim_assist_degrees: float = 14.0    # Cone angle for lock-on
+@export var aim_assist_max_dist: float = 220.0  # Max lock distance
+
 # Parâmetros de Aceleração/Throttle
 @export var min_speed: float = 20.0
 @export var max_speed: float = 65.0
@@ -19,6 +23,7 @@ extends CharacterBody3D
 @onready var wing_tip_r: Marker3D = $WingTipR
 @onready var camera: Camera3D = $Camera3D
 @onready var helice: MeshInstance3D = $Helice
+@onready var crosshair: Control = $CanvasLayer/Crosshair
 
 # Referências das partículas de vapor nas pontas das asas
 @onready var vapor_trail_l: CPUParticles3D = $WingTipL/VaporTrailL
@@ -33,6 +38,7 @@ extends CharacterBody3D
 var health: float = 100.0
 var is_dead: bool = false
 var fire_cooldown: float = 0.0
+var locked_target: Node3D = null
 
 # Variáveis do tremor de câmera (Camera Shake)
 var shake_amount: float = 0.0
@@ -96,19 +102,22 @@ func _physics_process(delta: float) -> void:
 	if fire_cooldown > 0:
 		fire_cooldown -= delta
 	
-	# 6. Código de Tiro (Disparo contínuo ao segurar a Barra de Espaço)
+	# 6. Aim Assist (Soft Lock)
+	_update_aim_assist(delta)
+	
+	# 7. Código de Tiro (Disparo contínuo ao segurar a Barra de Espaço)
 	if Input.is_action_pressed("ui_accept") and fire_cooldown <= 0:
 		shoot()
 		fire_cooldown = fire_rate
 		
-	# 7. Ativação dos rastros de vento (Vapor) nas asas em curvas fechadas
+	# 8. Ativação dos rastros de vento (Vapor) nas asas em curvas fechadas
 	var is_turning_hard = abs(roll_input) > 0.7 or abs(pitch_input) > 0.7
 	if is_instance_valid(vapor_trail_l):
 		vapor_trail_l.emitting = is_turning_hard
 	if is_instance_valid(vapor_trail_r):
 		vapor_trail_r.emitting = is_turning_hard
 		
-	# 8. Atualiza o Tremor da Câmera
+	# 9. Atualiza o Tremor da Câmera
 	if shake_amount > 0:
 		shake_amount = move_toward(shake_amount, 0.0, shake_decay * delta)
 		camera.transform.origin = camera_base_transform.origin + Vector3(
@@ -119,17 +128,22 @@ func _physics_process(delta: float) -> void:
 	else:
 		camera.transform.origin = camera_base_transform.origin
 		
-	# 9. Roda a hélice baseada na velocidade atual do motor
+	# 10. Roda a hélice baseada na velocidade atual do motor
 	if is_instance_valid(helice):
 		helice.rotate_z(26.0 * delta * (forward_speed / 40.0))
 		
-	# 10. Atualiza as informações do HUD na tela
+	# 11. Atualiza as informações do HUD na tela
 	update_hud()
 
 func shoot() -> void:
-	# Ponto de convergência no espaço 3D à frente do avião
 	var forward_dir = -global_transform.basis.z
-	var convergence_point = global_position + forward_dir * convergence_distance
+	var convergence_point: Vector3
+	
+	if locked_target and is_instance_valid(locked_target):
+		# Soft-lock: converge at target position, not fixed 150m
+		convergence_point = locked_target.global_position
+	else:
+		convergence_point = global_position + forward_dir * convergence_distance
 	
 	# Calcula as direções anguladas para dentro em direção ao ponto de convergência
 	var dir_left = (convergence_point - wing_tip_l.global_position).normalized()
@@ -151,6 +165,25 @@ func shoot() -> void:
 	
 	# Adiciona um tremor leve na câmera a cada disparo para dar sensação de recuo (recoil)
 	shake_amount = clamp(shake_amount + 0.05, 0.0, 0.15)
+
+
+func _update_aim_assist(_delta: float) -> void:
+	locked_target = null
+	var best_angle = deg_to_rad(aim_assist_degrees)
+	var forward = -global_transform.basis.z
+
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if not is_instance_valid(enemy):
+			continue
+		var to_enemy = (enemy.global_position - global_position).normalized()
+		var angle = forward.angle_to(to_enemy)
+		var dist = global_position.distance_to(enemy.global_position)
+		if angle < best_angle and dist < aim_assist_max_dist:
+			best_angle = angle
+			locked_target = enemy
+
+	if crosshair:
+		crosshair.set_locked(locked_target != null)
 
 func take_damage(amount: float) -> void:
 	if is_dead:
