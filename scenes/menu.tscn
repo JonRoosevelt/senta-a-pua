@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://byvcv3uv367lj"]
 
-[ext_resource type="Script" path="res://scripts/ui_screen.gd" id="1_menu"]
+[ext_resource type="Script" uid="uid://vplr5v74kctt" path="res://scripts/ui_screen.gd" id="1_menu"]
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" unique_id=867447972]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_menu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1816297519]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.12, 0.15, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=881421112]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,35 +28,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1598014042]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1219602388]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.75, 0.15, 1)
 theme_override_font_sizes/font_size = 48
 text = "SENTA A PUA!"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer" unique_id=599959637]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
 theme_override_font_sizes/font_size = 18
 text = "Campanha do 1º GAvCa na Itália (1944-1945)"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer" unique_id=607299035]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1226841042]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 text = "DECOLAR (INICIAR MISSÃO)"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=945329921]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 text = "SAIR DO JOGO"
