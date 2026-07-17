@@ -1,12 +1,20 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
-[sub_resource type="StandardMaterial3D" id="ground_mat"]
-albedo_color = Color(0.42, 0.38, 0.22, 1)
+[sub_resource type="StandardMaterial3D" id="ground_mat_green"]
+albedo_color = Color(0.32, 0.50, 0.20, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="ground_mat_field"]
+albedo_color = Color(0.55, 0.50, 0.20, 1)
 roughness = 0.92
 
 [sub_resource type="PlaneMesh" id="ground_plane"]
 size = Vector2(3000, 3000)
-material = SubResource("ground_mat")
+material = SubResource("ground_mat_green")
+
+[sub_resource type="PlaneMesh" id="field_patch"]
+size = Vector2(200, 200)
+material = SubResource("ground_mat_field")
 
 [sub_resource type="BoxShape3D" id="ground_shape"]
 size = Vector3(3000, 2, 3000)
@@ -15,6 +23,22 @@ size = Vector3(3000, 2, 3000)
 
 [node name="GroundVisual" type="MeshInstance3D" parent="."]
 mesh = SubResource("ground_plane")
+
+[node name="PatchA" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 0.05, -300)
+mesh = SubResource("field_patch")
+
+[node name="PatchB" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, 0.05, -300)
+mesh = SubResource("field_patch")
+
+[node name="PatchC" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 0.05, 300)
+mesh = SubResource("field_patch")
+
+[node name="PatchD" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300, 0.05, 300)
+mesh = SubResource("field_patch")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ground_shape")

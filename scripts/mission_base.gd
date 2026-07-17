@@ -9,16 +9,20 @@ func _ready() -> void:
 func _build_environment() -> void:
 	var b = load("res://scripts/scene_builder.gd").new()
 	
-	# Terreno padrão do Vale do Pó (todas as missões compartilham)
+	# Terreno patchwork do Vale do Pó
 	var terrain = b.create_terrain()
 	terrain.name = "PoValleyTerrain"
 	add_child(terrain)
 	move_child(terrain, 1)
 	
+	# Trilhas de terra entre campos
+	var paths = b.create_field_paths()
+	add_child(paths)
+	
 	var mountains = b.create_mountains()
 	add_child(mountains)
 	
-	var trees = b.create_trees(40, Vector3(0, 0, -250), Vector2(400, 250))
+	var trees = b.create_trees(300, Vector3(0, 0, -200), Vector2(600, 400))
 	add_child(trees)
 	
 	var village = b.create_village(Vector3(-60, 0, -350), 12)

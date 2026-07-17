@@ -3,16 +3,20 @@
 # (not Minecraft blocks - faceted but smooth, like the reference images)
 extends Node3D
 
-# === COLOR PALETTE (inspired by reference images) ===
+# === COLOR PALETTE (inspired by Po Valley concept art) ===
 const COLORS = {
-	"grass_light": Color(0.35, 0.52, 0.22),
-	"grass_mid": Color(0.28, 0.45, 0.18),
-	"grass_dark": Color(0.20, 0.35, 0.14),
-	"earth": Color(0.42, 0.35, 0.22),
+	# Patchwork field greens
+	"field_wheat": Color(0.58, 0.55, 0.20),
+	"grass_light": Color(0.38, 0.55, 0.24),
+	"grass_mid": Color(0.28, 0.48, 0.16),
+	"grass_dark": Color(0.18, 0.38, 0.13),
+	"earth": Color(0.45, 0.35, 0.18),
+	"plowed": Color(0.50, 0.36, 0.17),
 	"mountain_rock": Color(0.38, 0.35, 0.42),
+	"mountain_upper": Color(0.48, 0.45, 0.55),
 	"mountain_snow": Color(0.78, 0.80, 0.85),
 	"mountain_dark": Color(0.28, 0.25, 0.32),
-	"water": Color(0.18, 0.30, 0.48),
+	"water": Color(0.20, 0.42, 0.52),
 	"building_wall": Color(0.88, 0.80, 0.65),
 	"building_roof": Color(0.68, 0.32, 0.18),
 	"building_stone": Color(0.58, 0.52, 0.45),
@@ -61,31 +65,63 @@ func add_node(parent: Node, mesh: Mesh, pos: Vector3, rot: Vector3 = Vector3.ZER
 
 
 # =============================================
-# TERRAIN - flat shaded ground tiles
+# TERRAIN - patchwork field tiles (Po Valley style)
 # =============================================
 func create_terrain() -> Node3D:
 	var root = Node3D.new()
 	root.name = "Terrain"
 	
-	var grid = [-900, -600, -300, 0, 300, 600, 900]
+	var tile_size = 200.0
+	var grid_range = 6
 	
-	for x in grid:
-		for z in grid:
-			var color = COLORS["grass_mid"] if (x + z) % 600 == 0 else COLORS["grass_light"]
-			if randf() < 0.25:
-				color = COLORS["grass_dark"]
-			var mat = make_material(color, 0.9)
-			var tile = add_node(root, box_mesh(Vector3(300, 0.3, 300), mat), Vector3(x, 0, z))
-			tile.rotation_degrees = Vector3(randf_range(-0.5, 0.5), 0, randf_range(-0.5, 0.5))
+	var field_types = [
+		"field_wheat",
+		"grass_light",
+		"grass_mid",
+		"grass_dark",
+		"earth",
+		"plowed",
+	]
+	var weights = [12, 25, 30, 20, 8, 5]
+	var weighted := []
+	for i in range(field_types.size()):
+		for _j in range(weights[i]):
+			weighted.append(field_types[i])
+	
+	for xi in range(-grid_range, grid_range + 1):
+		for zi in range(-grid_range, grid_range + 1):
+			var ft = weighted[randi() % weighted.size()]
+			var color = COLORS[ft]
+			var mat = make_material(color, 0.92)
+			var tile = add_node(root, box_mesh(Vector3(tile_size * 0.97, 0.2, tile_size * 0.97), mat),
+				Vector3(xi * tile_size, 0, zi * tile_size),
+				Vector3(randf_range(-0.3, 0.3), 0, randf_range(-0.3, 0.3)))
 	
 	# Ground collision
 	var body = StaticBody3D.new()
 	body.name = "GroundPhysics"
 	var cs = CollisionShape3D.new()
 	cs.shape = BoxShape3D.new()
-	cs.shape.size = Vector3(2400, 2, 2400)
+	cs.shape.size = Vector3(2800, 2, 2800)
 	body.add_child(cs)
 	root.add_child(body)
+	
+	return root
+
+
+# =============================================
+# FIELD PATHS - narrow dirt roads between patches
+# =============================================
+func create_field_paths() -> Node3D:
+	var root = Node3D.new()
+	root.name = "FieldPaths"
+	
+	var path_mat = make_material(Color(0.52, 0.42, 0.28), 0.92)
+	var offset = 200.0
+	for i in range(-5, 6):
+		var px = i * offset
+		add_node(root, box_mesh(Vector3(2800, 0.06, 4), path_mat), Vector3(0, 0.13, px))
+		add_node(root, box_mesh(Vector3(4, 0.06, 2800), path_mat), Vector3(px, 0.13, 0))
 	
 	return root
 
@@ -99,13 +135,13 @@ func create_mountains() -> Node3D:
 	
 	var configs = [
 		# pos x,y,z | base width | height | depth
-		{"p": Vector3(-350, 45, -520), "w": 110, "h": 220, "d": 80},
-		{"p": Vector3(-180, 55, -580), "w": 85, "h": 260, "d": 70},
-		{"p": Vector3(30, 65, -550), "w": 100, "h": 280, "d": 90},
-		{"p": Vector3(220, 50, -600), "w": 90, "h": 240, "d": 75},
-		{"p": Vector3(380, 40, -530), "w": 105, "h": 200, "d": 80},
-		{"p": Vector3(-420, 30, -450), "w": 70, "h": 140, "d": 60},
-		{"p": Vector3(440, 35, -460), "w": 75, "h": 150, "d": 65},
+		{"p": Vector3(-350, 0, -520), "w": 110, "h": 220, "d": 80},
+		{"p": Vector3(-180, 0, -580), "w": 85, "h": 260, "d": 70},
+		{"p": Vector3(30, 0, -550), "w": 100, "h": 280, "d": 90},
+		{"p": Vector3(220, 0, -600), "w": 90, "h": 240, "d": 75},
+		{"p": Vector3(380, 0, -530), "w": 105, "h": 200, "d": 80},
+		{"p": Vector3(-420, 0, -450), "w": 70, "h": 140, "d": 60},
+		{"p": Vector3(440, 0, -460), "w": 75, "h": 150, "d": 65},
 	]
 	
 	for cfg in configs:
@@ -601,11 +637,11 @@ func create_dolomites_mountains() -> Node3D:
 	
 	# Dolomitas: montanhas mais largas, menos pontiagudas que os Alpes
 	var configs = [
-		{"p": Vector3(-350, 55, -550), "w": 140, "h": 180, "d": 90},
-		{"p": Vector3(-150, 60, -600), "w": 120, "h": 200, "d": 85},
-		{"p": Vector3(50, 70, -570), "w": 130, "h": 220, "d": 95},
-		{"p": Vector3(250, 55, -620), "w": 115, "h": 190, "d": 80},
-		{"p": Vector3(400, 45, -540), "w": 125, "h": 170, "d": 85},
+		{"p": Vector3(-350, 0, -550), "w": 140, "h": 180, "d": 90},
+		{"p": Vector3(-150, 0, -600), "w": 120, "h": 200, "d": 85},
+		{"p": Vector3(50, 0, -570), "w": 130, "h": 220, "d": 95},
+		{"p": Vector3(250, 0, -620), "w": 115, "h": 190, "d": 80},
+		{"p": Vector3(400, 0, -540), "w": 125, "h": 170, "d": 85},
 	]
 	
 	for cfg in configs:

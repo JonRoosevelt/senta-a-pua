@@ -31,7 +31,7 @@ fog_light_color = Color(0.75, 0.45, 0.3, 1)
 fog_aerial_perspective = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
-albedo_color = Color(0.22, 0.28, 0.15, 1)
+albedo_color = Color(0.32, 0.50, 0.20, 1)
 roughness = 0.9
 
 [sub_resource type="BoxMesh" id="BoxMesh_ground"]
