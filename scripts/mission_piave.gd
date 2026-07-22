@@ -83,7 +83,7 @@ func _enter_state(new_state: MissionState) -> void:
 	match state:
 		MissionState.TAKEOFF:
 			_radio(
-				"Senta a Púa, aqui Controle. Inteligência informa movimentação ferroviária inimiga sobre o Rio Piave. Sua missão é interromper esse tráfego.",
+				"Senta a Púa, aqui Controle. Inteligência informa movimentação ferroviária inimiga sobre o Rio Piave. \nSua missão é interromper esse tráfego.",
 				6.0,
 			)
 		MissionState.NAVIGATION:
