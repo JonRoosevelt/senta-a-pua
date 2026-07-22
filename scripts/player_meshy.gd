@@ -321,10 +321,10 @@ func _look_to_the_side(delta: float) -> void:
 	var target_y = 0.0
 	if Input.is_key_pressed(KEY_Q):
 		print("pressed Q")
-		target_y = -LOOK_ANGLE
+		target_y = LOOK_ANGLE
 	if Input.is_key_pressed(KEY_E):
 		print("pressed E")
-		target_y = LOOK_ANGLE
+		target_y = -LOOK_ANGLE
 
 	if camera:
 		camera.rotation.y = move_toward(camera.rotation.y, target_y, LOOK_SPEED * delta)
