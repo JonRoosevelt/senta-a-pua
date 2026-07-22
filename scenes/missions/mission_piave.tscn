@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/environment/ground.tscn" id="2_ground"]
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave.gd" id="3_script"]
+[ext_resource type="PackedScene" uid="uid://vjp31k5gyaqe" path="res://assets/meshy/tower.glb" id="4_d703k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piave"]
 sky_top_color = Color(0.35, 0.48, 0.68, 1)
@@ -26,6 +27,9 @@ fog_light_color = Color(0.92, 0.78, 0.52, 1)
 fog_density = 0.0008
 fog_aerial_perspective = 0.7
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_58114"]
+size = Vector3(0.6536865, 1.7890625, 1)
+
 [node name="MissionPiave" type="Node3D" unique_id=567382035]
 script = ExtResource("3_script")
 
@@ -40,6 +44,15 @@ shadow_enabled = true
 directional_shadow_max_distance = 300.0
 
 [node name="Ground" parent="." unique_id=114660659 instance=ExtResource("2_ground")]
+
+[node name="tower" parent="." unique_id=867294935 instance=ExtResource("4_d703k")]
+transform = Transform3D(20, 0, 0, 0, 18.368, 0, 0, 0, 11.58, 40.31687, 18.058311, -494.60602)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="tower" unique_id=1184062439]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tower/StaticBody3D" unique_id=1442653988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -0.06866455, -0.09765631, 0)
+shape = SubResource("BoxShape3D_58114")
 
 [node name="Player" parent="." unique_id=76390679 instance=ExtResource("1_player")]
 
