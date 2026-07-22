@@ -1,7 +1,11 @@
+# 3D Models
 *.glb filter=lfs diff=lfs merge=lfs -text
 *.fbx filter=lfs diff=lfs merge=lfs -text
+
+# Textures
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 *.exr filter=lfs diff=lfs merge=lfs -text
+# Godot resources
 *.res filter=lfs diff=lfs merge=lfs -text
 *.tres filter=lfs diff=lfs merge=lfs -text
