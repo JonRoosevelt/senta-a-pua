@@ -6,12 +6,18 @@ Regras e contexto para agentes de IA que trabalham neste projeto.
 
 ## 📋 Regras Fundamentais
 
-### 1. Plano de Desenvolvimento é a fonte da verdade
+### 1. NUNCA commitar sem autorização explícita
+- **Não faça `git commit` até que o usuário diga explicitamente que está pronto.**
+- O fluxo correto: implementar → usuário testa/revisa → usuário diz "pode commitar" → commitar.
+- Isso vale para qualquer mudança, por menor que seja.
+- Se precisar salvar trabalho em andamento, use `git stash` ou aguarde.
+
+### 2. Plano de Desenvolvimento é a fonte da verdade
 - O arquivo [`PLANO_DE_DESENVOLVIMENTO.md`](./PLANO_DE_DESENVOLVIMENTO.md) descreve TODAS as fases — concluídas, em andamento e futuras.
 - **Toda decisão de implementação deve consultar o plano primeiro.**
 - Se algo não está no plano, pergunte se deve estar ou se é uma adição válida.
 
-### 2. Atualizar o plano a cada commit significativo
+### 3. Atualizar o plano a cada commit significativo
 - Após qualquer commit que adicione/altere funcionalidade, **atualize o plano**:
   - Marque checkboxes concluídos `[x]`
   - Adicione novas fases se necessário
@@ -20,12 +26,12 @@ Regras e contexto para agentes de IA que trabalham neste projeto.
 - Commits triviais (typos, formatação, debug logs) não precisam de update.
 - Se a mudança afeta o diagrama Mermaid, atualize também.
 
-### 3. Sempre seguir a ordem das fases
+### 4. Sempre seguir a ordem das fases
 - Não pule fases a menos que explicitamente autorizado.
 - Se uma fase futura depende de algo ainda não feito, priorize a fase atual.
 - O diagrama Mermaid mostra as dependências — respeite a topologia.
 
-### 4. Commits em português, conventional commits
+### 5. Commits em português, conventional commits
 - Formato: `tipo(escopo): mensagem em português`
 - Tipos: `feat`, `fix`, `refactor`, `chore`, `docs`, `style`, `perf`, `test`
 - Escopos: `piave`, `enemy`, `player`, `hud`, `terrain`, `env`, `ui`, `campaign`
@@ -48,14 +54,16 @@ Regras e contexto para agentes de IA que trabalham neste projeto.
 ```
 scenes/           # Cenas Godot (.tscn)
   missions/       # Cenas específicas de missão
-  environment/    # Componentes de ambiente (ground, mountain, river, sky)
+  environment/    # Componentes de ambiente (ground, river)
 scripts/          # GDScripts
 assets/           # Assets do jogo
   meshy/          # Modelos 3D gerados por Meshy AI (.glb + texturas)
-  terrain/        # Assets de terreno (heightmaps, texturas, natureza)
-assets_3d/        # Assets 3D importados (Quaternius Nature Pack)
+  LowPolyEnvPack/ # Assets de ambiente low-poly
+  terrain/        # Assets de terreno (heightmaps, texturas)
+data_directory/   # Config do Terrain3D
+piave/            # Dados de heightmap do Terrain3D
 docs/             # Documentação de design e descoberta
-addons/           # Plugins Godot (godot-neovim, terrain_3d)
+addons/           # Plugins Godot (godot-neovim, terrain_3d, terrabrush)
 ```
 
 ---
@@ -96,7 +104,7 @@ addons/           # Plugins Godot (godot-neovim, terrain_3d)
 | [`docs/DISCOVERY_MISSAO1.md`](./docs/DISCOVERY_MISSAO1.md) | Pesquisa histórica e design da Missão 1 — Ponte de Piave |
 | [`docs/PLANO_VISUAL.md`](./docs/PLANO_VISUAL.md) | Referências visuais e plano de refinamento artístico |
 | [`docs/MESHY_PROMPTS.md`](./docs/MESHY_PROMPTS.md) | Prompts usados para gerar modelos 3D no Meshy AI |
-| [`docs/ASSETS_LOWPOLY_PLAN.md`](./docs/ASSETS_LOWPOLY_PLAN.md) | Plano original de assets low-poly (pré-Meshy) |
+| [`docs/MISSAO1_DESIGN.md`](./docs/MISSAO1_DESIGN.md) | Design canônico da Missão 1 — 8 estados, objetivos, filosofia |
 
 ---
 
@@ -110,7 +118,7 @@ Ver tabela de bugs no final do [`PLANO_DE_DESENVOLVIMENTO.md`](./PLANO_DE_DESENV
 
 1. **Consultar** o plano para ver o que deve ser feito em seguida
 2. **Implementar** seguindo as convenções acima
-3. **Testar** a funcionalidade no editor Godot
-4. **Comitar** com mensagem em conventional commits
+3. **Aguardar** o usuário testar e dar o sinal verde
+4. **Comitar** (só após autorização explícita) com mensagem em conventional commits
 5. **Atualizar** o plano marcando checkboxes concluídos
 6. Se a feature é significativa: adicionar nova fase ou expandir fase existente
