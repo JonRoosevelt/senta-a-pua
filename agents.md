@@ -105,6 +105,7 @@ addons/           # Plugins Godot (godot-neovim, terrain_3d, terrabrush)
 | [`docs/PLANO_VISUAL.md`](./docs/PLANO_VISUAL.md) | Referências visuais e plano de refinamento artístico |
 | [`docs/MESHY_PROMPTS.md`](./docs/MESHY_PROMPTS.md) | Prompts usados para gerar modelos 3D no Meshy AI |
 | [`docs/MISSAO1_DESIGN.md`](./docs/MISSAO1_DESIGN.md) | Design canônico da Missão 1 — 8 estados, objetivos, filosofia |
+| [`docs/pista_decolagem_referencia.png`](./docs/pista_decolagem_referencia.png) | Screenshot de referência da pista de decolagem |
 
 ---
 

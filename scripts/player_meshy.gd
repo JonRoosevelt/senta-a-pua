@@ -46,6 +46,7 @@ var ground_level: float = 0.0         # Y level of the runway
 var is_on_ground: bool = true         # Currently touching the ground
 var has_rotated: bool = false         # Nose has been pulled up
 var takeoff_roll_timer: float = 0.0   # Time spent in rotation before liftoff
+var crash_grace_timer: float = 0.0    # Brief immunity after takeoff
 
 
 func _ready() -> void:
@@ -91,8 +92,12 @@ func _physics_process(delta: float) -> void:
 	# ── Ground detection (for transition) ────────────────────
 	_check_ground_contact()
 	
-	# ── Crash detection (skip during takeoff ground roll) ────
-	if not (takeoff_mode and is_on_ground):
+	# ── Crash grace timer ────────────────────────────────────
+	if crash_grace_timer > 0:
+		crash_grace_timer -= delta
+	
+	# ── Crash detection (skip during ground roll + grace period) ────
+	if crash_grace_timer <= 0 and not (takeoff_mode and is_on_ground):
 		if get_slide_collision_count() > 0:
 			var collider = get_slide_collision(0).get_collider()
 			if collider and collider.has_method("take_damage"):
@@ -159,6 +164,7 @@ func _transition_to_flight() -> void:
 	is_on_ground = false
 	takeoff_mode = false
 	takeoff_roll_timer = 0.0
+	crash_grace_timer = 1.0  # 1 second immunity after takeoff
 	print("[Player] Decolagem! Transição para voo.")
 
 

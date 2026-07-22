@@ -18,21 +18,19 @@ var state: MissionState = MissionState.TAKEOFF
 # ── Radio / HUD ───────────────────────────────────────────────
 var radio_label: Label
 var radio_tween: Tween
-var radio_queue: Array[String] = []
+var radio_queue: Array = []
 var radio_active: bool = false
 
 # ── Runway ────────────────────────────────────────────────────
-const RUNWAY_LENGTH: float = 500.0
-const RUNWAY_WIDTH: float = 40.0
-const RUNWAY_POS: Vector3 = Vector3(0, 0.1, 300)  # South end of map
+@export var runway_length: float = 800.0
+@export var runway_width: float = 40.0
+const RUNWAY_POS: Vector3 = Vector3(0, 0.1, -300)  # North end of map, facing south (away from mountains)
 const RUNWAY_HEADING: float = 0.0  # North = -Z in Godot
 
 
 func _ready() -> void:
 	GameManager.start_mission()
-	_cleanup()
-	_setup_lighting()
-	_create_runway()
+	_setup_runway()
 	_setup_radio_hud()
 	_position_player()
 	_enter_state(MissionState.TAKEOFF)
@@ -64,7 +62,7 @@ func advance_state() -> void:
 # ── Runway / Airbase ──────────────────────────────────────────
 # ═══════════════════════════════════════════════════════════════
 
-func _create_runway() -> void:
+func _setup_runway() -> void:
 	var runway_root = Node3D.new()
 	runway_root.name = "Runway"
 	
@@ -76,7 +74,7 @@ func _create_runway() -> void:
 	var asphalt = MeshInstance3D.new()
 	asphalt.name = "Asphalt"
 	var asphalt_mesh = BoxMesh.new()
-	asphalt_mesh.size = Vector3(RUNWAY_WIDTH, 0.2, RUNWAY_LENGTH)
+	asphalt_mesh.size = Vector3(runway_width, 0.2, runway_length)
 	asphalt_mesh.material = asphalt_mat
 	asphalt.mesh = asphalt_mesh
 	asphalt.position = RUNWAY_POS + Vector3(0, 0, 0)
@@ -91,7 +89,7 @@ func _create_runway() -> void:
 	
 	var dash_length = 8.0
 	var gap_length = 4.0
-	var half_runway = RUNWAY_LENGTH / 2.0
+	var half_runway = runway_length / 2.0
 	var pos_z = -half_runway
 	
 	while pos_z < half_runway:
@@ -111,10 +109,10 @@ func _create_runway() -> void:
 	for side in [-1, 1]:
 		var edge = MeshInstance3D.new()
 		var edge_mesh = BoxMesh.new()
-		edge_mesh.size = Vector3(0.4, 0.01, RUNWAY_LENGTH)
+		edge_mesh.size = Vector3(0.4, 0.01, runway_length)
 		edge_mesh.material = edge_mat
 		edge.mesh = edge_mesh
-		edge.position = RUNWAY_POS + Vector3(side * (RUNWAY_WIDTH / 2.0 - 1.5), 0.11, 0)
+		edge.position = RUNWAY_POS + Vector3(side * (runway_width / 2.0 - 1.5), 0.11, 0)
 		runway_root.add_child(edge)
 	
 	# ── Ground collision for runway ───────────────────────────
@@ -122,7 +120,7 @@ func _create_runway() -> void:
 	runway_col.name = "RunwayCollision"
 	var col_shape = CollisionShape3D.new()
 	col_shape.shape = BoxShape3D.new()
-	col_shape.shape.size = Vector3(RUNWAY_WIDTH + 4, 0.4, RUNWAY_LENGTH + 4)
+	col_shape.shape.size = Vector3(runway_width + 4, 0.4, runway_length + 4)
 	runway_col.add_child(col_shape)
 	runway_col.position = RUNWAY_POS
 	runway_root.add_child(runway_col)
@@ -139,9 +137,9 @@ func _position_player() -> void:
 		print("[Piave] ⚠ Player node not found!")
 		return
 	
-	# Position at south end of runway, facing north
-	player.global_position = Vector3(RUNWAY_POS.x, RUNWAY_POS.y + 1.5, RUNWAY_POS.z + RUNWAY_LENGTH / 2.0 - 10)
-	player.rotation_degrees = Vector3(0, 180, 0)  # Face north (-Z)
+	# Position at north end of runway, facing south (away from mountains)
+	player.global_position = Vector3(RUNWAY_POS.x, RUNWAY_POS.y + 1.5, RUNWAY_POS.z - runway_length / 2.0 + 10)
+	player.rotation_degrees = Vector3(0, 180, 0)  # Face south (+Z), away from mountains
 	
 	# Tell player we're in takeoff mode
 	if player.has_method("set_takeoff_mode"):
@@ -195,7 +193,7 @@ func _setup_radio_hud() -> void:
 
 
 func _radio(text: String, duration: float = 4.0) -> void:
-	radio_queue.append(text)
+	radio_queue.append({"text": text, "duration": duration})
 	if not radio_active:
 		_show_next_radio()
 
@@ -206,7 +204,9 @@ func _show_next_radio() -> void:
 		return
 	
 	radio_active = true
-	var text = radio_queue.pop_front()
+	var entry = radio_queue.pop_front()
+	var text: String = entry["text"]
+	var hold_duration: float = entry["duration"]
 	
 	# Show radio prefix
 	radio_label.text = "[RÁDIO] " + text
@@ -221,7 +221,7 @@ func _show_next_radio() -> void:
 	# Fade in
 	radio_tween.tween_property(radio_label, "modulate:a", 1.0, 0.3)
 	# Hold
-	radio_tween.tween_interval(duration)
+	radio_tween.tween_interval(hold_duration)
 	# Fade out
 	radio_tween.tween_property(radio_label, "modulate:a", 0.0, 0.5)
 	radio_tween.tween_callback(_show_next_radio)
@@ -247,47 +247,3 @@ func _check_takeoff_complete() -> void:
 	if player.has_method("is_airborne") and player.is_airborne():
 		if player.global_position.y > RUNWAY_POS.y + 15.0:
 			advance_state()
-
-
-# ═══════════════════════════════════════════════════════════════
-# ── Lighting & Environment ─────────────────────────────────────
-# ═══════════════════════════════════════════════════════════════
-
-func _cleanup() -> void:
-	for name in ["Terrain", "River", "Alps", "LayerHills", "SkySphere", "Grass_1"]:
-		var node = get_node_or_null(name)
-		if node:
-			node.queue_free()
-
-
-func _setup_lighting() -> void:
-	var env = Environment.new()
-	env.background_mode = Environment.BG_SKY
-	env.ambient_light_color = Color(0.55, 0.48, 0.35)
-	env.ambient_light_energy = 1.3
-	env.tonemap_mode = Environment.TONE_MAPPER_ACES
-	env.glow_enabled = true
-	env.glow_intensity = 0.3
-	env.fog_enabled = true
-	env.fog_mode = 1
-	env.fog_density = 0.0008
-	env.fog_light_color = Color(0.92, 0.78, 0.52)
-	env.fog_aerial_perspective = 0.7
-	
-	var sky = Sky.new()
-	var sky_mat = ProceduralSkyMaterial.new()
-	sky_mat.sky_top_color = Color(0.35, 0.48, 0.68)
-	sky_mat.sky_horizon_color = Color(0.88, 0.68, 0.38)
-	sky_mat.ground_horizon_color = Color(0.42, 0.52, 0.28)
-	sky_mat.ground_bottom_color = Color(0.25, 0.35, 0.18)
-	sky.sky_material = sky_mat
-	env.sky = sky
-	
-	$WorldEnvironment.environment = env
-	
-	var sun = $DirectionalLight3D
-	sun.light_energy = 3.5
-	sun.light_color = Color(1.0, 0.85, 0.62)
-	sun.shadow_enabled = true
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
-	sun.directional_shadow_max_distance = 300.0
