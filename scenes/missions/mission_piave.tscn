@@ -1,14 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://mission_piave"]
+[gd_scene format=3 uid="uid://20vd77is4k0w"]
 
-[ext_resource type="PackedScene" uid="uid://player_p47" path="res://assets/meshy/p47_player.tscn" id="1_player"]
-[ext_resource type="PackedScene" uid="uid://ground_env" path="res://scenes/environment/ground.tscn" id="2_ground"]
-[ext_resource type="Script" uid="uid://mission_piave_script" path="res://scripts/mission_piave.gd" id="3_script"]
+[ext_resource type="PackedScene" path="res://assets/meshy/p47_player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/environment/ground.tscn" id="2_ground"]
+[ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave.gd" id="3_script"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piave"]
 sky_top_color = Color(0.35, 0.48, 0.68, 1)
 sky_horizon_color = Color(0.88, 0.68, 0.38, 1)
-ground_horizon_color = Color(0.42, 0.52, 0.28, 1)
 ground_bottom_color = Color(0.25, 0.35, 0.18, 1)
+ground_horizon_color = Color(0.42, 0.52, 0.28, 1)
 
 [sub_resource type="Sky" id="Sky_piave"]
 sky_material = SubResource("ProceduralSkyMaterial_piave")
@@ -20,27 +20,30 @@ ambient_light_color = Color(0.55, 0.48, 0.35, 1)
 ambient_light_energy = 1.3
 tonemap_mode = 1
 glow_enabled = true
-glow_intensity = 0.3
 fog_enabled = true
 fog_mode = 1
-fog_density = 0.0008
 fog_light_color = Color(0.92, 0.78, 0.52, 1)
+fog_density = 0.0008
 fog_aerial_perspective = 0.7
 
-[node name="MissionPiave" type="Node3D"]
+[node name="MissionPiave" type="Node3D" unique_id=567382035]
 script = ExtResource("3_script")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1132859760]
 environment = SubResource("Environment_piave")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1359225755]
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 20, 0)
-light_energy = 3.5
 light_color = Color(1, 0.85, 0.62, 1)
+light_energy = 3.5
 shadow_enabled = true
-directional_shadow_mode = 2
 directional_shadow_max_distance = 300.0
 
-[node name="Ground" parent="." instance=ExtResource("2_ground")]
+[node name="Ground" parent="." unique_id=114660659 instance=ExtResource("2_ground")]
 
-[node name="Player" parent="." instance=ExtResource("1_player")]
+[node name="Player" parent="." unique_id=76390679 instance=ExtResource("1_player")]
+
+[node name="CameraPivot" type="Node3D" parent="Player" unique_id=1336978064]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot" unique_id=1483700655]
+transform = Transform3D(1, 0, 0, 0, 0.9781476, -0.2079117, 0, 0.2079117, 0.9781476, 0, 4, 12)
