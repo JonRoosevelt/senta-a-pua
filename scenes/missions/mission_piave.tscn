@@ -64,6 +64,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.9999999, -0.06866455, -0.09765
 shape = SubResource("BoxShape3D_58114")
 
 [node name="Player" parent="." unique_id=76390679 instance=ExtResource("1_player")]
+pitch_speed = 0.4
+takeoff_climb_speed = 50.0
 
 [node name="CameraPivot" type="Node3D" parent="Player" unique_id=1336978064]
 

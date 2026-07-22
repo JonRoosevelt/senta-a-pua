@@ -233,8 +233,7 @@ func _takeoff_physics(delta: float) -> void:
 		takeoff_roll_timer += delta
 
 		# After a short moment of rotation, transition to flight
-		if takeoff_roll_timer > 0.3:
-			_transition_to_flight()
+		_transition_to_flight()
 
 	# ── Constrain to ground ───────────────────────────────────
 	global_position.y = ground_level + wheel_height # Keep plane at wheel height
