@@ -339,8 +339,8 @@ A direção de arte do projeto segue o estilo **low-poly de alto contraste**:
 ---
 
 > [!NOTE]
-> **Progresso atual:** 13 de 16 fases concluídas. Jogo possui: combate aéreo completo, HUD, física de voo, campanha com permadeath (6 pilotos históricos) + checkpoints, dogfights com IA boom & zoom realista, aim assist soft-lock, 16 modelos Meshy AI (P-47, Bf 109, Flak 88, B-25, ponte, trem, vilarejo, etc.), sistema de objetivos por missão, boundary guard, Terrain3D + Ultimate Nature Pack, cenário do Vale do Pó com Rio Piave procedural, e 5 missões históricas com briefing e progressão.
+> **Progresso atual:** Fase 14 em andamento — Estado 1 (Decolagem) implementado. Missão 1 tem design document dedicado em `docs/MISSAO1_DESIGN.md` com 8 estados sequenciais.
 >
-> **Próximo passo recomendado:** Fase 14 — Integração Final da Missão 1 (consolidar cena da ponte de Piave com todos os sistemas funcionando juntos).
+> **Próximo passo:** Testar decolagem no editor Godot, ajustar parâmetros, depois implementar Estado 2 (Navegação).
 >
-> **Commits mais recentes:** `553d945` (editor plugins), `b5c2733` (Terrain3D), `ee3aa10` (boom & zoom + aim assist), `9f90a18` (terrain fields).
+> **Commits mais recentes:** `83f8c16` (limpeza profunda), `34b4c11` (unificação cenas Piave).
