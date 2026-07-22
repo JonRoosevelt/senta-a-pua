@@ -1,44 +1,46 @@
-# mission_piave.gd - Missão 1: Batismo de Fogo (Ponte de Piave)
-# Uses real 3D assets from Quaternius Nature Pack
+# mission_piave.gd - Po Valley final mission
 extends Node3D
 
 func _ready() -> void:
 	GameManager.start_mission()
-	_build_scene()
+	_cleanup()
+	_setup_lighting()
+	print("[Piave] Ready.")
 
-func _build_scene() -> void:
-	var b = load("res://scripts/scene_builder_assets.gd").new()
+func _cleanup() -> void:
+	for name in ["Terrain", "River", "Alps", "LayerHills", "SkySphere", "Grass_1"]:
+		var node = get_node_or_null(name)
+		if node:
+			node.queue_free()
+
+func _setup_lighting() -> void:
+	var env = Environment.new()
+	env.background_mode = Environment.BG_SKY
+	env.ambient_light_color = Color(0.55, 0.48, 0.35)
+	env.ambient_light_energy = 1.3
+	env.tonemap_mode = Environment.TONE_MAPPER_ACES
+	env.glow_enabled = true
+	env.glow_intensity = 0.3
+	env.fog_enabled = true
+	env.fog_mode = 1
+	env.fog_density = 0.0008
+	env.fog_light_color = Color(0.92, 0.78, 0.52)
+	env.fog_aerial_perspective = 0.7
 	
-	# 1. Ground (plane at Y=-0.5, everything else on top)
-	var ground = b.create_ground()
-	add_child(ground)
-	move_child(ground, 1)
+	var sky = Sky.new()
+	var sky_mat = ProceduralSkyMaterial.new()
+	sky_mat.sky_top_color = Color(0.35, 0.48, 0.68)
+	sky_mat.sky_horizon_color = Color(0.88, 0.68, 0.38)
+	sky_mat.ground_horizon_color = Color(0.42, 0.52, 0.28)
+	sky_mat.ground_bottom_color = Color(0.25, 0.35, 0.18)
+	sky.sky_material = sky_mat
+	env.sky = sky
 	
-	# 2. Distant mountains (closer now, at Z=-350)
-	var mountains = b.create_mountains()
-	add_child(mountains)
+	$WorldEnvironment.environment = env
 	
-	# 3. River Piave (at Y=0, ON TOP of ground)
-	var river = b.create_river()
-	add_child(river)
-	
-	# 4. Autumn forest (bigger trees, scaled up)
-	var forest = b.create_forest(40, Vector3(0, 0, -200), Vector2(400, 250))
-	add_child(forest)
-	
-	# 5. Rocks scattered
-	var rocks = b.create_rocks(25, Vector3(0, 0, -200), Vector2(300, 200))
-	add_child(rocks)
-	
-	# 6. Bushes
-	var bushes = b.create_bushes(15, Vector3(0, 0, -200), Vector2(250, 150))
-	add_child(bushes)
-	
-	# 7. Bridge (destructible)
-	var old_builder = load("res://scripts/scene_builder.gd").new()
-	var bridge = old_builder.create_destructible_bridge(Vector3(0, 0, -300), 3)
-	add_child(bridge)
-	old_builder.queue_free()
-	
-	b.queue_free()
-	print("[Missão Piave] Cenário outonal construído.")
+	var sun = $DirectionalLight3D
+	sun.light_energy = 3.5
+	sun.light_color = Color(1.0, 0.85, 0.62)
+	sun.shadow_enabled = true
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+	sun.directional_shadow_max_distance = 300.0
