@@ -244,7 +244,7 @@ func _transition_to_flight() -> void:
 	is_on_ground = false
 	takeoff_mode = false
 	takeoff_roll_timer = 0.0
-	crash_grace_timer = 1.0 # 1 second immunity after takeoff
+	crash_grace_timer = 2.5 # 2.5 second immunity after takeoff
 	print("[Player] Decolagem! Transição para voo.")
 
 
@@ -265,10 +265,17 @@ func _flight_physics(delta: float) -> void:
 
 	# ── Flight physics ────────────────────────────────────────
 	var forward_direction = -global_transform.basis.z
-	var engine_velocity = forward_direction * forward_speed
+	var forward_flat = forward_direction
+	forward_flat.y = 0
+	forward_flat = forward_flat.normalized()
+	var engine_velocity = forward_flat * forward_speed
 	var gravity_vector = Vector3(0, -9.8, 0)
 	var speed_ratio = forward_speed / 40.0
-	var lift_vector = global_transform.basis.y * 9.8 * speed_ratio
+	# use global Y (lift always upwards, regardless of the inclination)
+	var nose_up = -global_transform.basis.z.y
+	nose_up = clamp(nose_up, -0.3, 1.0)
+	var lift_factor = max(0.0, nose_up) * 2.5
+	var lift_vector = Vector3.UP * 9.8 * speed_ratio * lift_factor
 	velocity = engine_velocity + (gravity_vector + lift_vector)
 
 
