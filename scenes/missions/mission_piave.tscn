@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://dj57q5a81bm5b" path="res://scripts/mission_piave.gd" id="3_script"]
 [ext_resource type="PackedScene" uid="uid://vjp31k5gyaqe" path="res://assets/meshy/tower.glb" id="4_d703k"]
 [ext_resource type="PackedScene" uid="uid://nrk7go4soqe3" path="res://assets/meshy/hangar01.glb" id="5_i10hc"]
+[ext_resource type="PackedScene" uid="uid://b7wewt0yj3uhf" path="res://assets/meshy/mini.glb" id="6_m3xq5"]
+[ext_resource type="PackedScene" uid="uid://imlks7rdr33i" path="res://assets/meshy/hangar02.glb" id="7_h7vad"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_piave"]
 sky_top_color = Color(0.35, 0.48, 0.68, 1)
@@ -32,6 +34,10 @@ fog_aerial_perspective = 0.7
 size = Vector3(0.6536865, 1.7890625, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v0rwa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_adubl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6b2o"]
 
 [node name="MissionPiave" type="Node3D" unique_id=567382035]
 script = ExtResource("3_script")
@@ -71,3 +77,51 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 99.764206, 8.078512, -540.
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hangar01/StaticBody3D" unique_id=2071352541]
 shape = SubResource("BoxShape3D_v0rwa")
+
+[node name="hangar04" parent="." unique_id=1216771267 instance=ExtResource("5_i10hc")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 140.06142, 8.078512, -294.6708)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="hangar04" unique_id=630518146]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hangar04/StaticBody3D" unique_id=1003941115]
+shape = SubResource("BoxShape3D_v0rwa")
+
+[node name="mini" parent="." unique_id=971815962 instance=ExtResource("6_m3xq5")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 82.06586, 4.2272243, -589.0643)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mini" unique_id=396201054]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mini/StaticBody3D" unique_id=330496640]
+shape = SubResource("BoxShape3D_adubl")
+
+[node name="mini2" parent="." unique_id=1112166959 instance=ExtResource("6_m3xq5")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 105.581665, 4.2272243, -611.61145)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mini2" unique_id=42709104]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mini2/StaticBody3D" unique_id=564017913]
+shape = SubResource("BoxShape3D_adubl")
+
+[node name="mini3" parent="." unique_id=2041739075 instance=ExtResource("6_m3xq5")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, 147.99191, 4.2272243, -329.68518)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mini3" unique_id=768350943]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mini3/StaticBody3D" unique_id=225967967]
+shape = SubResource("BoxShape3D_adubl")
+
+[node name="hangar02" parent="." unique_id=1557159461 instance=ExtResource("7_h7vad")]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 95.14786, 8.80294, -423.46768)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="hangar02" unique_id=1661674057]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hangar02/StaticBody3D" unique_id=1202010981]
+shape = SubResource("BoxShape3D_r6b2o")
+
+[node name="hangar03" parent="." unique_id=1439095229 instance=ExtResource("7_h7vad")]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 95.14786, 8.80294, -364.46768)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="hangar03" unique_id=767841435]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hangar03/StaticBody3D" unique_id=956575613]
+shape = SubResource("BoxShape3D_r6b2o")
